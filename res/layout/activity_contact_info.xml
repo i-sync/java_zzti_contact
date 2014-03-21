@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <TextView 
+        android:id="@+id/tv_contact_info_text_name"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_modify_contact_name_text"
+        android:gravity="right"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="20sp"/>
+	<TextView 
+	    android:id="@+id/tv_contact_info_name"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="20sp"
+	    android:layout_toRightOf="@+id/tv_contact_info_text_name"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:text="田振运"/>
+	<TextView
+	    android:id="@+id/tv_contact_info_text_class"
+	    android:layout_width="80dp"
+	    android:layout_height="wrap_content"
+	    android:text="@string/tv_modify_contact_class_text"
+	    android:layout_below="@+id/tv_contact_info_text_name"
+        android:gravity="right"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp"/>
+
+	<TextView
+	    android:id="@+id/tv_contact_info_class"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/tv_contact_info_name"
+	    android:layout_toRightOf="@+id/tv_contact_info_text_class"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:text="编码091"
+	    android:textSize="20sp" />
+	
+	<TextView
+	    android:id="@+id/tv_contact_info_text_phone"
+	    android:layout_width="80dp"
+	    android:layout_height="wrap_content"
+	    android:text="@string/tv_modify_contact_phone_text"
+	    android:layout_below="@+id/tv_contact_info_text_class"
+        android:gravity="right"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp"/>
+
+	<TextView
+	    android:id="@+id/tv_contact_info_phone"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/tv_contact_info_class"
+	    android:layout_toRightOf="@+id/tv_contact_info_text_phone"
+	    android:text="18668420876"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp" />
+
+	<TextView
+	    android:id="@+id/tv_contact_info_text_email"
+	    android:layout_width="80dp"
+	    android:layout_height="wrap_content"
+	    android:text="@string/tv_modify_contact_email_text"
+	    android:layout_below="@+id/tv_contact_info_text_phone"
+        android:gravity="right"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp"/>
+
+	<TextView
+	    android:id="@+id/tv_contact_info_email"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/tv_contact_info_phone"
+	    android:layout_toRightOf="@+id/tv_contact_info_text_email"
+	    android:text="tianzhenyun@gmail.com"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp" />
+	
+	<TextView
+	    android:id="@+id/tv_contact_info_text_living"
+	    android:layout_width="80dp"
+	    android:layout_height="wrap_content"
+	    android:text="@string/tv_modify_contact_living_text"
+	    android:layout_below="@+id/tv_contact_info_text_email"
+        android:gravity="right"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp"/>
+
+	<TextView
+	    android:id="@+id/tv_contact_info_living"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/tv_contact_info_email"
+	    android:layout_toRightOf="@+id/tv_contact_info_text_living"
+	    android:text="北京"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp" />
+	
+	<TextView
+	    android:id="@+id/tv_contact_info_text_company"
+	    android:layout_width="80dp"
+	    android:layout_height="wrap_content"
+	    android:text="@string/tv_modify_contact_company_text"
+	    android:layout_below="@+id/tv_contact_info_text_living"
+        android:gravity="right"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp"/>
+
+	<TextView
+	    android:id="@+id/tv_contact_info_company"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/tv_contact_info_living"
+	    android:layout_toRightOf="@+id/tv_contact_info_text_company"
+	    android:text="SCG.上海先达"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp" />
+	
+	<TextView
+	    android:id="@+id/tv_contact_info_text_remark"
+	    android:layout_width="80dp"
+	    android:layout_height="wrap_content"
+	    android:text="@string/tv_modify_contact_remark_text"
+	    android:layout_below="@+id/tv_contact_info_text_company"
+        android:gravity="right"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp"/>
+
+	<TextView
+	    android:id="@+id/tv_contact_info_remark"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/tv_contact_info_company"
+	    android:layout_toRightOf="@+id/tv_contact_info_text_remark"
+	    android:text="AEWRAF234534TWEG432234R324RQWEF"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+	    android:textSize="20sp" />
+	
+	<Button
+	    android:id="@+id/btn_contact_info_back"
+	    android:layout_width="100dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_marginBottom="10dp"
+	    android:layout_marginRight="10dp"
+	    android:text="返回"/>
+</RelativeLayout>

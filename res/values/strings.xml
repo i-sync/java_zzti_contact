@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">通讯录</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_add_contact">add contact</string>
+    <string name="action_search">search</string>
+    <string name="action_search_hint">name|phone</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="drawer_close">drawer close</string>
+	<string name="drawer_open">drawer open</string>
+	
+	<!-- contact_list -->
+	<string name="et_contact_list_name_hint">姓名</string>
+	<string name="et_contact_list_phone_hint">手机号</string>
+	<string name="btn_contact_list_search_text">检索</string>
+	<string name="btn_contact_list_update_text">修改</string>
+	
+	<!-- contact_modify -->
+	<string name="tv_modify_contact_name_text">姓名：</string>
+	<string name="tv_modify_contact_class_text">班级：</string>
+	<string name="tv_modify_contact_phone_text">手机号：</string>
+	<string name="tv_modify_contact_email_text">邮箱：</string>
+	<string name="tv_modify_contact_living_text">现居地：</string>
+	<string name="tv_modify_contact_company_text">公司：</string>
+	<string name="tv_modify_contact_remark_text">备注：</string>
+	<string name="btn_modify_contact_submit_text">保存</string>
+	<string name="btn_modify_contact_cancel_text">取消</string>
+	
+	<string name="et_modify_contact_name_hint">张三</string>
+	<string name="et_modify_contact_phone_hint">186********</string>
+	<string name="et_modify_contact_email_hint">example@qq.com</string>
+	<string name="et_modify_contact_living_hint">北京</string>
+	<string name="et_modify_contact_company_hint">百度科技</string>
+	
+</resources>
