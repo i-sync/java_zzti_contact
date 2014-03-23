@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -41,8 +44,25 @@ public class ContactInfoActivity extends BaseActivity {
 			Contact data = result.getT();
 			tvName.setText(data.getName());
 			tvClass.setText(data.getCname());
-			tvPhone.setText(data.getPhone());
-			tvEmail.setText(data.getEmail());
+			
+			//设置电话连接
+			String phone = data.getPhone();
+			SpannableString span1 = new SpannableString(phone);
+			tvPhone.setText(span1);
+			tvPhone.setAutoLinkMask(Linkify.PHONE_NUMBERS);
+			tvPhone.setMovementMethod(LinkMovementMethod.getInstance());
+			
+			//tvPhone.setText(data.getPhone());
+			//设置邮箱连接
+			String email = data.getEmail().trim();
+			if(!email.equals(""))
+			{
+				SpannableString span2 = new SpannableString(email);
+				tvEmail.setText(span2);
+				tvEmail.setAutoLinkMask(Linkify.EMAIL_ADDRESSES);
+				tvEmail.setMovementMethod(LinkMovementMethod.getInstance());
+			}
+			//tvEmail.setText(data.getEmail());
 			tvLiving.setText(data.getLiving());
 			tvCompany.setText(data.getCompany());
 			tvRemark.setText(data.getRemark());
@@ -97,6 +117,11 @@ public class ContactInfoActivity extends BaseActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * 加载联系人信息
+	 * @author zhenyun
+	 *
+	 */
 	private class LoadContactInfoThread implements Runnable {
 		private int id;
 

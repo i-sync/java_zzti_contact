@@ -10,6 +10,7 @@ import com.zzti.bean.Result;
 import com.zzti.bean.TResult;
 import com.zzti.utils.RegexUtil;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -198,6 +199,7 @@ public class ModifyContactActivity extends BaseActivity {
 
 		// 判断是添加还是修改，如果是修改，获取联系人信息
 		if (type == 1) {
+			setTitle(R.string.activity_contact_update);
 			new Thread(new LoadContactThread()).start();
 		}
 

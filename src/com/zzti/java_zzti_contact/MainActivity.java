@@ -1,10 +1,7 @@
 package com.zzti.java_zzti_contact;
 
-import android.app.Application;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -28,29 +25,63 @@ import com.zzti.bean.Class;
 import com.zzti.bean.ListResult;
 
 public class MainActivity extends BaseActivity implements OnQueryTextListener {
+	private static final int RESUME = 0;
+	private static final int CLASS_LOAD = 1;
 	private long exitTime;// 退出确认
 	private DrawerLayout mDrawerLayout;
 	private ListView mListView;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
-	
-	//private ProgressBar progressBar = Common.getInstance().getProgressBar();
-	
-	private Handler handler = new Handler(){
+	public int position;// 当前left选择位置
+
+	// private ProgressBar progressBar = Common.getInstance().getProgressBar();
+
+	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			ListResult<Class> result = (ListResult<Class>)msg.obj;
-			if(result.getResult()!=1)
-			{
-				Log.i("---->", result.getMessage());
-				Toast.makeText(MainActivity.this, result.getMessage(), Toast.LENGTH_LONG).show();
+			switch (msg.what) {
+			case CLASS_LOAD:
+				ListResult<Class> result = (ListResult<Class>) msg.obj;
+				if (result.getResult() != 1) {
+					Log.i("---->", result.getMessage());
+					Toast.makeText(MainActivity.this, result.getMessage(),
+							Toast.LENGTH_LONG).show();
+				}
+				DrawerListAdapter adapter = new DrawerListAdapter(
+						result.getList(), MainActivity.this);
+				mListView.setAdapter(adapter);
+				mListView.setOnItemClickListener(new DrawerItemClickListener());
+
+				selectItem(0, result.getList().get(0));
+				break;
+			case RESUME:
+				if(mListView.getAdapter()==null)
+					return;
+				Class data = new Class();
+				data.setId((int)mListView.getAdapter().getItemId(0));
+				selectItem(0, data);
+				break;
 			}
-			DrawerListAdapter adapter = new DrawerListAdapter(result.getList(), MainActivity.this);
-			mListView.setAdapter(adapter);
-			mListView.setOnItemClickListener(new DrawerItemClickListener());
-			
-			selectItem(0, result.getList().get(0));
 		};
+	};
+	
+	private Runnable runnable = new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			handler.sendEmptyMessage(RESUME);
+		}
+	};
+	
+	/*
+	 * 重新恢复方法，(non-Javadoc)
+	 * @see android.app.Activity#onResume()
+	 */
+	@Override
+	protected void onResume() {
+		super.onResume();
+		handler.post(runnable);
 	};
 
 	@Override
@@ -58,7 +89,7 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
 		mListView = (ListView) this.findViewById(R.id.left_drawer);
@@ -89,64 +120,72 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 											// onPrepareOptionsMenu()
 			}
 		};
-		
+
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-		
-		//开启线程
-		//this.addContentView(progressBar,null);
+
+		// 开启线程
+		// this.addContentView(progressBar,null);
 		new Thread(new LoadClassInfo()).start();
 	}
-	
-	private class LoadClassInfo implements Runnable
-	{
+
+	/**
+	 * 加载班级列表信息
+	 * 
+	 * @author zhenyun
+	 * 
+	 */
+	private class LoadClassInfo implements Runnable {
 		@Override
 		public void run() {
-			ListResult<Class> result = com.zzti.bean.Common.getInstance().class_getlist();
+			ListResult<Class> result = com.zzti.bean.Common.getInstance()
+					.class_getlist();
 			Message msg = Message.obtain();
+			msg.what=CLASS_LOAD;
 			msg.obj = result;
 			handler.sendMessage(msg);
 		}
-		
+
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
 
 		getMenuInflater().inflate(R.menu.main, menu);
 		// 取得id为R.id.action_search的MenuItem，由于xml文件中已经指定android:actionViewClass="android.widget.SearchView"
-        // 所以通过getActionView()便可以显式转换为SearchView
-        SearchView searchView = (SearchView)menu.findItem(R.id.action_search).getActionView();
-        // 注册搜索输入栏的事件监听器，来自于实现接口：android.widget.SearchView.OnQueryTextListener
-        // 事件回调方法为：onQueryTextSubmit()开始搜索事件；onQueryTextChange()文本改变事件
-        searchView.setOnQueryTextListener(this);
-                                                  
+		// 所以通过getActionView()便可以显式转换为SearchView
+		// SearchView searchView =
+		// (SearchView)menu.findItem(R.id.action_search).getActionView();
+		// 注册搜索输入栏的事件监听器，来自于实现接口：android.widget.SearchView.OnQueryTextListener
+		// 事件回调方法为：onQueryTextSubmit()开始搜索事件；onQueryTextChange()文本改变事件
+		// searchView.setOnQueryTextListener(this);
+
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onQueryTextChange(String newText) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	public boolean onQueryTextSubmit(String query) {
 		// TODO Auto-generated method stub
 		Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
 		return false;
 	}
-	
+
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mListView);
-		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
-		menu.findItem(R.id.action_search).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_about).setVisible(!drawerOpen);
+		// menu.findItem(R.id.action_search).setVisible(!drawerOpen);
 		menu.findItem(R.id.action_add_contact).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
@@ -156,48 +195,55 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 			return true;
 		}
 		switch (item.getItemId()) {
-		case R.id.action_search:
-			return true;
+		// case R.id.action_search:
+		// return true;
 		case R.id.action_add_contact:
-			Intent intent = new Intent(MainActivity.this,ModifyContactActivity.class);
-			intent.putExtra("type", 0);//type 0为添加，1为修改
-			intent.putExtra("id", 0);//添加时id为0
+			Intent intent = new Intent(MainActivity.this,
+					ModifyContactActivity.class);
+			intent.putExtra("type", 0);// type 0为添加，1为修改
+			intent.putExtra("id", 0);// 添加时id为0
 			startActivity(intent);
-			
+
+			return true;
+		case R.id.action_about:
+			Intent intent1 = new Intent(MainActivity.this, AboutActivity.class);
+			startActivity(intent1);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-		
+
 	}
-	
+
 	/* The click listner for ListView in the navigation drawer */
 	private class DrawerItemClickListener implements
 			ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			Class data = (Class)mListView.getAdapter().getItem(position);
-			selectItem(position,data);
+			MainActivity.this.position = position;
+			Class data = (Class) mListView.getAdapter().getItem(position);
+			selectItem(position, data);
 		}
 	}
 
-	private void selectItem(int position, Class data) {
+	public void selectItem(int position, Class data) {
 		Fragment fragment = new ContactListFragment(data);
 		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+		fragmentManager.beginTransaction()
+				.replace(R.id.content_frame, fragment).commit();
 		mListView.setItemChecked(position, true);
 		setTitle(data.getName());
-		mDrawerLayout.closeDrawer(mListView);		
+		mDrawerLayout.closeDrawer(mListView);
 	}
-	
+
 	@Override
 	public void setTitle(CharSequence title) {
 		// TODO Auto-generated method stub
 		mTitle = title;
 		getActionBar().setTitle(mTitle);
 	}
-	
+
 	/**
 	 * When using the ActionBarDrawerToggle, you must call it during
 	 * onPostCreate() and onConfigurationChanged()...
@@ -216,18 +262,18 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		boolean flag = mDrawerLayout.isDrawerOpen(mListView);
-		if(!flag){
+		if (!flag) {
 			mDrawerLayout.openDrawer(mListView);
 			return;
 		}
 		super.onBackPressed();
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
@@ -245,9 +291,7 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 					.show();
 			exitTime = System.currentTimeMillis();
 		} else {
-//			finish();
-//			System.exit(0);
-			BaseApplication.getInstance().AppExit();//完全退出程序
+			BaseApplication.getInstance().AppExit();// 完全退出程序
 		}
 	}
 }
