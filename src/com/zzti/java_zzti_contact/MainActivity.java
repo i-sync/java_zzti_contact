@@ -1,9 +1,13 @@
 package com.zzti.java_zzti_contact;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.SearchView.OnQueryTextListener;
 
@@ -25,6 +28,11 @@ import com.zzti.bean.Class;
 import com.zzti.bean.ListResult;
 
 public class MainActivity extends BaseActivity implements OnQueryTextListener {
+	// 子Activity类型
+	public static final int SUB_ACTIVITY_MODIFY = 1;
+	public static final int SUB_ACTIVITY_INFO = 2;
+	public static final int SUB_ACTIVITY_ABOUT = 3;
+
 	private static final int RESUME = 0;
 	private static final int CLASS_LOAD = 1;
 	private long exitTime;// 退出确认
@@ -42,6 +50,11 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 			switch (msg.what) {
 			case CLASS_LOAD:
 				ListResult<Class> result = (ListResult<Class>) msg.obj;
+				if (result == null) {
+					Toast.makeText(MainActivity.this, "没有查询到数据！",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
 				if (result.getResult() != 1) {
 					Log.i("---->", result.getMessage());
 					Toast.makeText(MainActivity.this, result.getMessage(),
@@ -55,7 +68,7 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 				selectItem(0, result.getList().get(0));
 				break;
 			case RESUME:
-				if(mListView.getAdapter()==null)
+				if (mListView.getAdapter() == null)
 					return;
 				Class data = new Class();
 				data.setId((int)mListView.getAdapter().getItemId(0));
@@ -64,31 +77,20 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 			}
 		};
 	};
-	
-	private Runnable runnable = new Runnable() {
-		
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			handler.sendEmptyMessage(RESUME);
-		}
-	};
-	
-	/*
-	 * 重新恢复方法，(non-Javadoc)
-	 * @see android.app.Activity#onResume()
-	 */
-	@Override
-	protected void onResume() {
-		super.onResume();
-		handler.post(runnable);
-	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// 判断网络是否连接
+		boolean flag = NetworkManager.getInstance().isNetworkConnected(
+				MainActivity.this);
+		if (!flag) {
+			Toast.makeText(MainActivity.this, "网络未连接,请检查网络！",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
 
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
@@ -129,6 +131,32 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 	}
 
 	/**
+	 * 重写方法(当子Activity结束，返回数据在方法中处理)
+	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Toast.makeText(MainActivity.this, resultCode+"", Toast.LENGTH_LONG).show();
+		// TODO Auto-generated method stub
+		//super.onActivityResult(requestCode, resultCode, data);
+		// 判断子Activity类型
+		Log.i("------->",String.valueOf(resultCode));
+		switch (requestCode) {
+		case SUB_ACTIVITY_MODIFY:
+			if(resultCode==1)
+			{
+				Message msg = Message.obtain();
+				msg.what=RESUME;
+				handler.sendMessage(msg);
+			}
+			break;
+		case SUB_ACTIVITY_INFO:
+			break;
+		case SUB_ACTIVITY_ABOUT:
+			break;
+		}
+	}
+
+	/**
 	 * 加载班级列表信息
 	 * 
 	 * @author zhenyun
@@ -140,7 +168,7 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 			ListResult<Class> result = com.zzti.bean.Common.getInstance()
 					.class_getlist();
 			Message msg = Message.obtain();
-			msg.what=CLASS_LOAD;
+			msg.what = CLASS_LOAD;
 			msg.obj = result;
 			handler.sendMessage(msg);
 		}
@@ -202,12 +230,13 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 					ModifyContactActivity.class);
 			intent.putExtra("type", 0);// type 0为添加，1为修改
 			intent.putExtra("id", 0);// 添加时id为0
-			startActivity(intent);
-
+			//startActivity(intent);
+			startActivityForResult(intent, SUB_ACTIVITY_MODIFY);
 			return true;
 		case R.id.action_about:
 			Intent intent1 = new Intent(MainActivity.this, AboutActivity.class);
-			startActivity(intent1);
+			//startActivity(intent1);
+			startActivityForResult(intent1, SUB_ACTIVITY_ABOUT);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

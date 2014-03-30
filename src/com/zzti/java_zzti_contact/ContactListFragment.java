@@ -42,19 +42,18 @@ public class ContactListFragment extends Fragment {
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			ListResult<Contact> result = (ListResult<Contact>) msg.obj;
-			if(result==null)
-			{
-				Toast.makeText(getActivity(), "数据为：null", Toast.LENGTH_LONG).show();
-			}
-			else
-			{
-				if(result.getResult()!=1)
-				{
-					Log.i("---->",result.getMessage());
-					Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_LONG).show();
+			if (result == null) {
+				Toast.makeText(getActivity(), "数据为：null", Toast.LENGTH_LONG)
+						.show();
+			} else {
+				if (result.getResult() != 1) {
+					Log.i("---->", result.getMessage());
+					Toast.makeText(getActivity(), result.getMessage(),
+							Toast.LENGTH_LONG).show();
 				}
-				
-				ComplexListAdapter adapter = new ComplexListAdapter(result.getList(), getActivity());
+
+				ComplexListAdapter adapter = new ComplexListAdapter(
+						result.getList(), getActivity());
 				listView.setAdapter(adapter);
 			}
 		};
@@ -72,7 +71,7 @@ public class ContactListFragment extends Fragment {
 		// .findViewById(R.id.btn_contact_list_search);
 		listView = (ListView) rootView.findViewById(R.id.lv_contact_list);
 
-		//加载数据
+		// 加载数据
 		new Thread(new LoadContactList()).start();
 		// listView点击事件
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -81,14 +80,15 @@ public class ContactListFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				Toast.makeText(getActivity(), String.valueOf(id), Toast.LENGTH_SHORT);
-				Intent intent = new Intent(getActivity(),ContactInfoActivity.class);
-				intent.putExtra("id", (int)id);
+				Toast.makeText(getActivity(), String.valueOf(id),
+						Toast.LENGTH_SHORT);
+				Intent intent = new Intent(getActivity(),
+						ContactInfoActivity.class);
+				intent.putExtra("id", (int) id);
 				startActivity(intent);
 			}
 		});
-		
-		
+
 		return rootView;
 	}
 
@@ -112,22 +112,22 @@ public class ContactListFragment extends Fragment {
 		}
 
 	}
-	
+
 	/**
 	 * 自定义适配器
+	 * 
 	 * @author zhenyun
-	 *
+	 * 
 	 */
-	private class ComplexListAdapter extends BaseAdapter
-	{
+	private class ComplexListAdapter extends BaseAdapter {
 		private List<Contact> list;
 		private Context context;
-		
-		public ComplexListAdapter(List<Contact> list,Context context)
-		{
+
+		public ComplexListAdapter(List<Contact> list, Context context) {
 			this.list = list;
 			this.context = context;
 		}
+
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
@@ -147,73 +147,79 @@ public class ContactListFragment extends Fragment {
 		}
 
 		@Override
-		public View getView(final int position, View convertView, ViewGroup parent) {
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
 			ViewHolder item = null;
-			if(convertView==null)
-			{
-				convertView = LayoutInflater.from(context).inflate(R.layout.fragment_contact_list_item,null);
+			if (convertView == null) {
+				convertView = LayoutInflater.from(context).inflate(
+						R.layout.fragment_contact_list_item, null);
 				item = new ViewHolder();
-				item.name = (TextView) convertView.findViewById(R.id.tv_contact_list_name);
-				item.phone = (TextView) convertView.findViewById(R.id.tv_contact_list_phone);
-				item.living = (TextView) convertView.findViewById(R.id.tv_contact_list_living);
-				//item.email = (TextView) convertView.findViewById(R.id.tv_contact_list_email);
-				//item.company = (TextView) convertView.findViewById(R.id.tv_contact_list_company);
-				item.remark = (TextView) convertView.findViewById(R.id.tv_contact_list_remark);
-				item.btnUpdate = (Button) convertView.findViewById(R.id.btn_contact_list_update);
-				
+				item.name = (TextView) convertView
+						.findViewById(R.id.tv_contact_list_name);
+				item.phone = (TextView) convertView
+						.findViewById(R.id.tv_contact_list_phone);
+				item.living = (TextView) convertView
+						.findViewById(R.id.tv_contact_list_living);
+				// item.email = (TextView)
+				// convertView.findViewById(R.id.tv_contact_list_email);
+				// item.company = (TextView)
+				// convertView.findViewById(R.id.tv_contact_list_company);
+				item.remark = (TextView) convertView
+						.findViewById(R.id.tv_contact_list_remark);
+				item.btnUpdate = (Button) convertView
+						.findViewById(R.id.btn_contact_list_update);
+
 				convertView.setTag(item);
-			}
-			else
-			{
+			} else {
 				item = (ViewHolder) convertView.getTag();
 			}
-			
+
 			/** 设置TextView显示的内容，即我们存放在动态数组中的数据 */
 			item.name.setText(list.get(position).getName());
-			//设置点击号码进入拨号界面
-			/*String phone= list.get(position).getPhone();
-			SpannableString span = new SpannableString(phone);
-			item.phone.setText(span);
-			item.phone.setMovementMethod(LinkMovementMethod.getInstance());*/
+			// 设置点击号码进入拨号界面
+			/*
+			 * String phone= list.get(position).getPhone(); SpannableString span
+			 * = new SpannableString(phone); item.phone.setText(span);
+			 * item.phone.setMovementMethod(LinkMovementMethod.getInstance());
+			 */
 			item.phone.setText(list.get(position).getPhone());
-			
+
 			item.living.setText(list.get(position).getLiving());
-			//item.email.setText(list.get(position).getEmail());
-			//item.company.setText(list.get(position).getCompany());
+			// item.email.setText(list.get(position).getEmail());
+			// item.company.setText(list.get(position).getCompany());
 			item.remark.setText(list.get(position).getRemark());
-			
+
 			/**
 			 * 点击修改按钮事件
 			 */
 			item.btnUpdate.setOnClickListener(new View.OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					//Toast.makeText(getActivity(), String.valueOf(getItemId(position)), Toast.LENGTH_LONG).show();
-					Intent intent = new Intent(getActivity(),ModifyContactActivity.class);
-					intent.putExtra("type", 1);//type:0为添加，1为修改
-					intent.putExtra("id", (int)getItemId(position));
-					startActivity(intent);
+					Intent intent = new Intent(getActivity(),
+							ModifyContactActivity.class);
+					intent.putExtra("type", 1);// type:0为添加，1为修改
+					intent.putExtra("id", (int) getItemId(position));
+					// startActivity(intent);
+					startActivityForResult(intent,
+							MainActivity.SUB_ACTIVITY_MODIFY);
 				}
 			});
-			
+
 			return convertView;
 		}
-		
-		
-		private class ViewHolder
-		{
+
+		private class ViewHolder {
 			public TextView name;
 			public TextView phone;
 			public TextView living;
-			//public TextView email;
-			//public TextView company;
+			// public TextView email;
+			// public TextView company;
 			public TextView remark;
 			public Button btnUpdate;
-			
+
 		}
-		
+
 	}
-	
+
 }

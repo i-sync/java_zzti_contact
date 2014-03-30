@@ -107,11 +107,14 @@ public class ModifyContactActivity extends BaseActivity {
 							result2.getMessage(), Toast.LENGTH_LONG).show();
 					return;
 				}
-				// 保存成功，关闭当前窗口，刷新主页列表
+				//Intent intent = new Intent(ModifyContactActivity.this,MainActivity.class);
+				// 保存成功，刷新列表				
+				setResult(1);
+				
+				// 保存成功，关闭当前窗口
 				BaseApplication.getInstance().finishActivity(
 						ModifyContactActivity.class);
-				// 刷新列表
-				// ....
+				
 				break;
 			}
 		};
@@ -248,6 +251,8 @@ public class ModifyContactActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
+				setResult(2);
 				BaseApplication.getInstance().finishActivity(
 						ModifyContactActivity.class);
 			}
