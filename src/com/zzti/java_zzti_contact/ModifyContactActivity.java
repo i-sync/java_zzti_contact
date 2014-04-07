@@ -44,6 +44,7 @@ public class ModifyContactActivity extends BaseActivity {
 	private EditText etRemark;
 	private Button btnSubmit;
 	private Button btnCancel;
+	private boolean isConnected;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -107,14 +108,15 @@ public class ModifyContactActivity extends BaseActivity {
 							result2.getMessage(), Toast.LENGTH_LONG).show();
 					return;
 				}
-				//Intent intent = new Intent(ModifyContactActivity.this,MainActivity.class);
-				// 保存成功，刷新列表				
-				setResult(1);
-				
+				// Intent intent = new
+				// Intent(ModifyContactActivity.this,MainActivity.class);
+				// 保存成功，刷新列表
+				setResult(Activity.RESULT_OK);
+
 				// 保存成功，关闭当前窗口
 				BaseApplication.getInstance().finishActivity(
 						ModifyContactActivity.class);
-				
+
 				break;
 			}
 		};
@@ -181,7 +183,17 @@ public class ModifyContactActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify_contact);
+		// 判断网络是否连接
+		isConnected = NetworkManager.getInstance().isNetworkConnected(
+				ModifyContactActivity.this);
 
+		// 判断网络是否连接
+		if (!isConnected) {
+			Toast.makeText(ModifyContactActivity.this, "网络未连接,请检查网络！", Toast.LENGTH_LONG)
+					.show();
+			return;
+		}
+		
 		Intent intent = getIntent();
 		type = intent.getIntExtra("type", 0);
 		id = intent.getIntExtra("id", 0);
@@ -206,6 +218,9 @@ public class ModifyContactActivity extends BaseActivity {
 			new Thread(new LoadContactThread()).start();
 		}
 
+		/**
+		 * 保存按钮事件
+		 */
 		btnSubmit.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -246,13 +261,15 @@ public class ModifyContactActivity extends BaseActivity {
 			}
 		});
 
+		/**
+		 * 点击取消事件
+		 */
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				setResult(2);
+				// 设置返回值为 取消
+				setResult(Activity.RESULT_CANCELED);
 				BaseApplication.getInstance().finishActivity(
 						ModifyContactActivity.class);
 			}
@@ -324,7 +341,7 @@ public class ModifyContactActivity extends BaseActivity {
 			Result result = null;
 			if (type == 0)
 				result = Common.getInstance().contact_add(data);
-			else 
+			else
 				result = Common.getInstance().contact_update(data);
 			Message msg = Message.obtain();
 			msg.what = CONTACT_SAVE_FLAG;

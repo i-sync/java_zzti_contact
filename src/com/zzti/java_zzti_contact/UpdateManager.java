@@ -1,6 +1,5 @@
 package com.zzti.java_zzti_contact;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -103,7 +102,7 @@ public class UpdateManager {
 			// 显示提示对话框
 			showNoticeDialog();
 		} else {
-			Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_LONG)
+			Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_SHORT)
 					.show();
 		}
 	}

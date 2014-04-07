@@ -1,10 +1,8 @@
 package com.zzti.java_zzti_contact;
 
-import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +13,7 @@ public class AboutActivity extends BaseActivity {
 
 	private TextView tvVersion;
 	private Button btnUpdate;
+	private boolean isConnected;
 
 	public AboutActivity() {
 		// TODO Auto-generated constructor stub
@@ -25,6 +24,9 @@ public class AboutActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
+		// 判断网络是否连接
+		isConnected = NetworkManager.getInstance().isNetworkConnected(
+				AboutActivity.this);
 
 		tvVersion = (TextView) this.findViewById(R.id.tv_about_version);
 		btnUpdate = (Button) this.findViewById(R.id.btn_about_update);
@@ -37,7 +39,12 @@ public class AboutActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// 首先检查网络是否可用
+				if (!isConnected) {
+					Toast.makeText(AboutActivity.this, "网络未连接,请检查网络！",
+							Toast.LENGTH_LONG).show();
+					return;
+				}
 				UpdateManager manager = new UpdateManager(AboutActivity.this,
 						getVersionCode());
 				// 检查软件更新

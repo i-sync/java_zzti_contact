@@ -3,11 +3,8 @@ package com.zzti.java_zzti_contact;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,14 +38,13 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 	private ActionBarDrawerToggle mDrawerToggle;
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
-	public int position;// 当前left选择位置
-
-	// private ProgressBar progressBar = Common.getInstance().getProgressBar();
+	private int position;// 当前left选择位置
+	private boolean isConnected;// 标识网络是否连接
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-			case CLASS_LOAD:
+			case CLASS_LOAD:// 班级列表加载
 				ListResult<Class> result = (ListResult<Class>) msg.obj;
 				if (result == null) {
 					Toast.makeText(MainActivity.this, "没有查询到数据！",
@@ -65,14 +61,12 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 				mListView.setAdapter(adapter);
 				mListView.setOnItemClickListener(new DrawerItemClickListener());
 
-				selectItem(0, result.getList().get(0));
+				selectItem(position);
 				break;
-			case RESUME:
+			case RESUME:// 只有在保存后刷新列表
 				if (mListView.getAdapter() == null)
 					return;
-				Class data = new Class();
-				data.setId((int)mListView.getAdapter().getItemId(0));
-				selectItem(0, data);
+				selectItem(position);
 				break;
 			}
 		};
@@ -82,15 +76,9 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
 		// 判断网络是否连接
-		boolean flag = NetworkManager.getInstance().isNetworkConnected(
+		isConnected = NetworkManager.getInstance().isNetworkConnected(
 				MainActivity.this);
-		if (!flag) {
-			Toast.makeText(MainActivity.this, "网络未连接,请检查网络！",
-					Toast.LENGTH_SHORT).show();
-			return;
-		}
 
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
@@ -125,6 +113,12 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+		// 判断网络是否连接
+		if (!isConnected) {
+			Toast.makeText(MainActivity.this, "网络未连接,请检查网络！", Toast.LENGTH_LONG)
+					.show();
+			return;
+		}
 		// 开启线程
 		// this.addContentView(progressBar,null);
 		new Thread(new LoadClassInfo()).start();
@@ -135,22 +129,15 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Toast.makeText(MainActivity.this, resultCode+"", Toast.LENGTH_LONG).show();
-		// TODO Auto-generated method stub
-		//super.onActivityResult(requestCode, resultCode, data);
-		// 判断子Activity类型
-		Log.i("------->",String.valueOf(resultCode));
 		switch (requestCode) {
 		case SUB_ACTIVITY_MODIFY:
-			if(resultCode==1)
-			{
+			if (resultCode == Activity.RESULT_OK) {
 				Message msg = Message.obtain();
-				msg.what=RESUME;
+				msg.what = RESUME;
 				handler.sendMessage(msg);
 			}
 			break;
 		case SUB_ACTIVITY_INFO:
-			break;
 		case SUB_ACTIVITY_ABOUT:
 			break;
 		}
@@ -208,9 +195,10 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mListView);
-		menu.findItem(R.id.action_about).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_about).setVisible(!drawerOpen & isConnected);
 		// menu.findItem(R.id.action_search).setVisible(!drawerOpen);
-		menu.findItem(R.id.action_add_contact).setVisible(!drawerOpen);
+		menu.findItem(R.id.action_add_contact).setVisible(
+				!drawerOpen & isConnected);
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -230,12 +218,12 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 					ModifyContactActivity.class);
 			intent.putExtra("type", 0);// type 0为添加，1为修改
 			intent.putExtra("id", 0);// 添加时id为0
-			//startActivity(intent);
+			// startActivity(intent);
 			startActivityForResult(intent, SUB_ACTIVITY_MODIFY);
 			return true;
 		case R.id.action_about:
 			Intent intent1 = new Intent(MainActivity.this, AboutActivity.class);
-			//startActivity(intent1);
+			// startActivity(intent1);
 			startActivityForResult(intent1, SUB_ACTIVITY_ABOUT);
 			return true;
 		default:
@@ -250,14 +238,16 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
+			// 存储点击的班级位置
 			MainActivity.this.position = position;
-			Class data = (Class) mListView.getAdapter().getItem(position);
-			selectItem(position, data);
+			// Class data = (Class) mListView.getAdapter().getItem(position);
+			selectItem(position);
 		}
 	}
 
-	public void selectItem(int position, Class data) {
-		Fragment fragment = new ContactListFragment(data);
+	public void selectItem(int position) {
+		Class data = (Class) mListView.getAdapter().getItem(position);// 获取class对象
+		Fragment fragment = new ContactListFragment(data.getId());
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();

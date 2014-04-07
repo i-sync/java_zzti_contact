@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,10 +31,10 @@ public class ContactListFragment extends Fragment {
 	// private Button btnSearch;
 	private ListView listView;
 
-	private com.zzti.bean.Class data;
+	private int cid;// 班级ID
 
-	public ContactListFragment(com.zzti.bean.Class data) {
-		this.data = data;
+	public ContactListFragment(int cid) {
+		this.cid = cid;
 	}
 
 	private Handler handler = new Handler() {
@@ -79,9 +77,6 @@ public class ContactListFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
-				Toast.makeText(getActivity(), String.valueOf(id),
-						Toast.LENGTH_SHORT);
 				Intent intent = new Intent(getActivity(),
 						ContactInfoActivity.class);
 				intent.putExtra("id", (int) id);
@@ -93,7 +88,7 @@ public class ContactListFragment extends Fragment {
 	}
 
 	/**
-	 * 添加联系列表
+	 * 根据班级ID加载联系列表
 	 * 
 	 * @author zhenyun
 	 * 
@@ -103,7 +98,8 @@ public class ContactListFragment extends Fragment {
 		public void run() {
 			// TODO Auto-generated method stub
 			Contact c = new Contact();
-			c.setCid(data.getId());
+			c.setCid(cid);
+
 			ListResult<Contact> result = Common.getInstance()
 					.contact_getlist(c);
 			Message msg = Message.obtain();
@@ -201,7 +197,7 @@ public class ContactListFragment extends Fragment {
 					intent.putExtra("type", 1);// type:0为添加，1为修改
 					intent.putExtra("id", (int) getItemId(position));
 					// startActivity(intent);
-					startActivityForResult(intent,
+					getActivity().startActivityForResult(intent,
 							MainActivity.SUB_ACTIVITY_MODIFY);
 				}
 			});
