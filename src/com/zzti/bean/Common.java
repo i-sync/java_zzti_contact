@@ -8,9 +8,9 @@ import com.zzti.utils.SoapObjectUtils;
 import com.zzti.utils.WebServiceObject;
 
 public class Common {
-//	private final String SERVICE_URL = "http://contact09.duapp.com/java_zzti_clouddb/Service";
-	 private final String SERVICE_URL =
-	 "http://192.168.2.103:8080/java_zzti_clouddb/Service";
+	private final String SERVICE_URL = "http://contact09.duapp.com/java_zzti_clouddb/Service";
+//	 private final String SERVICE_URL =
+//	 "http://192.168.2.103:8080/java_zzti_clouddb/Service";
 	private final String SERVICE_NS = "http://service.zzti.com/";
 
 	private volatile static Common instance;

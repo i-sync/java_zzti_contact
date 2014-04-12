@@ -14,7 +14,7 @@ public class AboutActivity extends BaseActivity {
 	private TextView tvVersion;
 	private Button btnUpdate;
 	private boolean isConnected;
-
+	
 	public AboutActivity() {
 		// TODO Auto-generated constructor stub
 	}
@@ -24,6 +24,7 @@ public class AboutActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
+		
 		// ≈–∂œÕ¯¬Á «∑Ò¡¨Ω”
 		isConnected = NetworkManager.getInstance().isNetworkConnected(
 				AboutActivity.this);

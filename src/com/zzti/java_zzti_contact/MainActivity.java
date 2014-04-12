@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.SearchView.OnQueryTextListener;
 
@@ -40,6 +41,8 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 	private CharSequence mTitle;
 	private int position;// 当前left选择位置
 	private boolean isConnected;// 标识网络是否连接
+	
+	private DialogFrag dialog ;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -61,6 +64,7 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 				mListView.setAdapter(adapter);
 				mListView.setOnItemClickListener(new DrawerItemClickListener());
 
+				dialog.dismiss();
 				selectItem(position);
 				break;
 			case RESUME:// 只有在保存后刷新列表
@@ -79,6 +83,8 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 		// 判断网络是否连接
 		isConnected = NetworkManager.getInstance().isNetworkConnected(
 				MainActivity.this);
+		dialog = DialogFrag.getInstance();
+		
 
 		mTitle = mDrawerTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) this.findViewById(R.id.drawer_layout);
@@ -120,7 +126,7 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 			return;
 		}
 		// 开启线程
-		// this.addContentView(progressBar,null);
+		dialog.show(getFragmentManager(), null);
 		new Thread(new LoadClassInfo()).start();
 	}
 

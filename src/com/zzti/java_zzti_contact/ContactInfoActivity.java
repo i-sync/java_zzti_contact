@@ -26,6 +26,8 @@ public class ContactInfoActivity extends BaseActivity {
 	private TextView tvCompany;
 	private TextView tvRemark;
 	private Button btnCancel;
+	
+	private DialogFrag dialog;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
@@ -66,6 +68,9 @@ public class ContactInfoActivity extends BaseActivity {
 			tvLiving.setText(data.getLiving());
 			tvCompany.setText(data.getCompany());
 			tvRemark.setText(data.getRemark());
+			
+			//вўВи
+			dialog.dismiss();
 		};
 	};
 
@@ -75,6 +80,8 @@ public class ContactInfoActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact_info);
 
+		dialog = DialogFrag.getInstance();
+		
 		tvName = (TextView) this.findViewById(R.id.tv_contact_info_name);
 		tvClass = (TextView) this.findViewById(R.id.tv_contact_info_class);
 		tvPhone = (TextView) this.findViewById(R.id.tv_contact_info_phone);
@@ -87,6 +94,8 @@ public class ContactInfoActivity extends BaseActivity {
 		Intent intent = getIntent();
 		int id = intent.getIntExtra("id", 0);
 		getActionBar().setHomeButtonEnabled(true);
+		
+		dialog.show(getFragmentManager(), null);
 		new Thread(new LoadContactInfoThread(id)).start();
 
 		btnCancel.setOnClickListener(new View.OnClickListener() {

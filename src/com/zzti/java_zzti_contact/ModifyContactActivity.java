@@ -46,6 +46,7 @@ public class ModifyContactActivity extends BaseActivity {
 	private Button btnCancel;
 	private boolean isConnected;
 
+	private DialogFrag dialog;
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -64,7 +65,8 @@ public class ModifyContactActivity extends BaseActivity {
 				ComplexAdapter adapter = new ComplexAdapter(
 						ModifyContactActivity.this, result.getList());
 				spClass.setAdapter(adapter);
-
+				
+				dialog.dismiss();
 				break;
 			case CONTACT_LOAD_FLAG:
 				TResult<Contact> result1 = (TResult<Contact>) msg.obj;
@@ -95,6 +97,7 @@ public class ModifyContactActivity extends BaseActivity {
 				etCompany.setText(data.getCompany());
 				etRemark.setText(data.getRemark());
 
+				dialog.dismiss();
 				break;
 			case CONTACT_SAVE_FLAG:
 				Result result2 = (Result) msg.obj;
@@ -112,7 +115,8 @@ public class ModifyContactActivity extends BaseActivity {
 				// Intent(ModifyContactActivity.this,MainActivity.class);
 				// 保存成功，刷新列表
 				setResult(Activity.RESULT_OK);
-
+				
+				dialog.dismiss();
 				// 保存成功，关闭当前窗口
 				BaseApplication.getInstance().finishActivity(
 						ModifyContactActivity.class);
@@ -183,6 +187,8 @@ public class ModifyContactActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_modify_contact);
+		
+		dialog = DialogFrag.getInstance();
 		// 判断网络是否连接
 		isConnected = NetworkManager.getInstance().isNetworkConnected(
 				ModifyContactActivity.this);
@@ -210,11 +216,13 @@ public class ModifyContactActivity extends BaseActivity {
 		btnCancel = (Button) this.findViewById(R.id.btn_modify_contact_cancel);
 
 		// 首先加载班级列表
+		dialog.show(getFragmentManager(), null);
 		new Thread(new LoadClassThread()).start();
 
 		// 判断是添加还是修改，如果是修改，获取联系人信息
 		if (type == 1) {
 			setTitle(R.string.activity_contact_update);
+			dialog.show(getFragmentManager(), null);
 			new Thread(new LoadContactThread()).start();
 		}
 
@@ -257,6 +265,7 @@ public class ModifyContactActivity extends BaseActivity {
 
 				Contact data = new Contact(id, name, cid, "", phone, email,
 						living, company, remark);
+				dialog.show(getFragmentManager(), null);
 				new Thread(new SaveContactThread(data)).start();
 			}
 		});

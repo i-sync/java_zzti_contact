@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-    <issue id="ValidFragment">
+    <issue id="ValidFragment" severity="ignore">
         <ignore path="src/com/zzti/java_zzti_contact/ContactListFragment.java" />
     </issue>
 </lint>
