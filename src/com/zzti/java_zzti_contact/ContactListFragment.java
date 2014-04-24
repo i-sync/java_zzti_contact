@@ -34,6 +34,9 @@ public class ContactListFragment extends Fragment {
 	private DialogFrag dialog;
 	private int cid;// 班级ID
 
+	public ContactListFragment() {
+	}
+
 	public ContactListFragment(int cid) {
 		this.cid = cid;
 	}
@@ -55,7 +58,7 @@ public class ContactListFragment extends Fragment {
 						result.getList(), getActivity());
 				listView.setAdapter(adapter);
 			}
-			//隐藏
+			// 隐藏
 			dialog.dismiss();
 		};
 	};
@@ -72,7 +75,7 @@ public class ContactListFragment extends Fragment {
 		// .findViewById(R.id.btn_contact_list_search);
 		listView = (ListView) rootView.findViewById(R.id.lv_contact_list);
 		dialog = DialogFrag.getInstance();
-		
+
 		// 加载数据
 		dialog.show(getFragmentManager(), null);
 		new Thread(new LoadContactList()).start();

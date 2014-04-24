@@ -24,8 +24,8 @@ import android.widget.SearchView.OnQueryTextListener;
 
 import com.zzti.bean.Class;
 import com.zzti.bean.ListResult;
-
-public class MainActivity extends BaseActivity implements OnQueryTextListener {
+//implements OnQueryTextListener
+public class MainActivity extends BaseActivity {
 	// ◊”Activity¿‡–Õ
 	public static final int SUB_ACTIVITY_MODIFY = 1;
 	public static final int SUB_ACTIVITY_INFO = 2;
@@ -184,18 +184,18 @@ public class MainActivity extends BaseActivity implements OnQueryTextListener {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	@Override
-	public boolean onQueryTextChange(String newText) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean onQueryTextSubmit(String query) {
-		// TODO Auto-generated method stub
-		Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
-		return false;
-	}
+//	@Override
+//	public boolean onQueryTextChange(String newText) {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean onQueryTextSubmit(String query) {
+//		// TODO Auto-generated method stub
+//		Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
+//		return false;
+//	}
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
