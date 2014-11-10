@@ -1,9 +1,9 @@
-package com.zzti.bean;
+ï»¿package com.zzti.bean;
 
 import java.io.Serializable;
 
 /**
- * webservice·µ»Ø»ùÀà
+ * webserviceè¿”å›åŸºç±»
  * 
  * @author zhenyun
  * 
@@ -14,11 +14,11 @@ public class Result implements Serializable {
 	 */
 	private static final long serialVersionUID = 2521229921861976258L;
 	/**
-	 * ·µ»Ø½á¹û 1£º³É¹¦ 0£ºÊ§°Ü
+	 * è¿”å›ç»“æœ 1ï¼šæˆåŠŸ 0ï¼šå¤±è´¥
 	 */
 	private int result;
 	/**
-	 * ²Ù×÷ĞÅÏ¢
+	 * æ“ä½œä¿¡æ¯
 	 */
 	private String message;
 	

@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+ï»¿package com.zzti.java_zzti_contact;
 
 import java.util.List;
 
@@ -28,13 +28,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ModifyContactActivity extends BaseActivity {
-	// ¶¨Òå³£Á¿
+	// å®šä¹‰å¸¸é‡
 	private final int CLASS_LOAD_FLAG = 1;
 	private final int CONTACT_LOAD_FLAG = 2;
 	private final int CONTACT_SAVE_FLAG = 3;
 
-	private int id;// ²Ù×÷ID
-	private int type;// ²Ù×÷ÀàĞÍ£º0ÎªÌí¼Ó£¬1ÎªĞŞ¸Ä
+	private int id;// æ“ä½œID
+	private int type;// æ“ä½œç±»å‹ï¼š0ä¸ºæ·»åŠ ï¼Œ1ä¸ºä¿®æ”¹
 	private EditText etName;
 	private Spinner spClass;
 	private EditText etPhone;
@@ -53,7 +53,7 @@ public class ModifyContactActivity extends BaseActivity {
 			case CLASS_LOAD_FLAG:
 				ListResult result = (ListResult<Class>) msg.obj;
 				if (result == null) {
-					Toast.makeText(ModifyContactActivity.this, "²éÑ¯Êı¾İÎªNULL!",
+					Toast.makeText(ModifyContactActivity.this, "æŸ¥è¯¢æ•°æ®ä¸ºNULL!",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -71,7 +71,7 @@ public class ModifyContactActivity extends BaseActivity {
 			case CONTACT_LOAD_FLAG:
 				TResult<Contact> result1 = (TResult<Contact>) msg.obj;
 				if (result1 == null) {
-					Toast.makeText(ModifyContactActivity.this, "²éÑ¯Êı¾İÎªNULL!",
+					Toast.makeText(ModifyContactActivity.this, "æŸ¥è¯¢æ•°æ®ä¸ºNULL!",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -80,7 +80,7 @@ public class ModifyContactActivity extends BaseActivity {
 							result1.getMessage(), Toast.LENGTH_LONG).show();
 					return;
 				}
-				// µÃµ½¶ÔÏó£¬ÏÔÊ¾
+				// å¾—åˆ°å¯¹è±¡ï¼Œæ˜¾ç¤º
 				Contact data = result1.getT();
 				etName.setText(data.getName());
 				for (int i = 0; spClass.getAdapter() != null
@@ -102,7 +102,7 @@ public class ModifyContactActivity extends BaseActivity {
 			case CONTACT_SAVE_FLAG:
 				Result result2 = (Result) msg.obj;
 				if (result2 == null) {
-					Toast.makeText(ModifyContactActivity.this, "µÃµ½Êı¾İÎªNULL!",
+					Toast.makeText(ModifyContactActivity.this, "å¾—åˆ°æ•°æ®ä¸ºNULL!",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -113,11 +113,11 @@ public class ModifyContactActivity extends BaseActivity {
 				}
 				// Intent intent = new
 				// Intent(ModifyContactActivity.this,MainActivity.class);
-				// ±£´æ³É¹¦£¬Ë¢ĞÂÁĞ±í
+				// ä¿å­˜æˆåŠŸï¼Œåˆ·æ–°åˆ—è¡¨
 				setResult(Activity.RESULT_OK);
 				
 				dialog.dismiss();
-				// ±£´æ³É¹¦£¬¹Ø±Õµ±Ç°´°¿Ú
+				// ä¿å­˜æˆåŠŸï¼Œå…³é—­å½“å‰çª—å£
 				BaseApplication.getInstance().finishActivity(
 						ModifyContactActivity.class);
 
@@ -127,7 +127,7 @@ public class ModifyContactActivity extends BaseActivity {
 	};
 
 	/**
-	 * °ó¶¨ÏÂÀ­ÁĞ±íÊÊÅäÆ÷
+	 * ç»‘å®šä¸‹æ‹‰åˆ—è¡¨é€‚é…å™¨
 	 * 
 	 * @author zhenyun
 	 * 
@@ -189,13 +189,13 @@ public class ModifyContactActivity extends BaseActivity {
 		setContentView(R.layout.activity_modify_contact);
 		
 		dialog = DialogFrag.getInstance();
-		// ÅĞ¶ÏÍøÂçÊÇ·ñÁ¬½Ó
+		// åˆ¤æ–­ç½‘ç»œæ˜¯å¦è¿æ¥
 		isConnected = NetworkManager.getInstance().isNetworkConnected(
 				ModifyContactActivity.this);
 
-		// ÅĞ¶ÏÍøÂçÊÇ·ñÁ¬½Ó
+		// åˆ¤æ–­ç½‘ç»œæ˜¯å¦è¿æ¥
 		if (!isConnected) {
-			Toast.makeText(ModifyContactActivity.this, "ÍøÂçÎ´Á¬½Ó,Çë¼ì²éÍøÂç£¡", Toast.LENGTH_LONG)
+			Toast.makeText(ModifyContactActivity.this, "ç½‘ç»œæœªè¿æ¥,è¯·æ£€æŸ¥ç½‘ç»œï¼", Toast.LENGTH_LONG)
 					.show();
 			return;
 		}
@@ -215,11 +215,11 @@ public class ModifyContactActivity extends BaseActivity {
 		btnSubmit = (Button) this.findViewById(R.id.btn_modify_contact_submit);
 		btnCancel = (Button) this.findViewById(R.id.btn_modify_contact_cancel);
 
-		// Ê×ÏÈ¼ÓÔØ°à¼¶ÁĞ±í
+		// é¦–å…ˆåŠ è½½ç­çº§åˆ—è¡¨
 		dialog.show(getFragmentManager(), null);
 		new Thread(new LoadClassThread()).start();
 
-		// ÅĞ¶ÏÊÇÌí¼Ó»¹ÊÇĞŞ¸Ä£¬Èç¹ûÊÇĞŞ¸Ä£¬»ñÈ¡ÁªÏµÈËĞÅÏ¢
+		// åˆ¤æ–­æ˜¯æ·»åŠ è¿˜æ˜¯ä¿®æ”¹ï¼Œå¦‚æœæ˜¯ä¿®æ”¹ï¼Œè·å–è”ç³»äººä¿¡æ¯
 		if (type == 1) {
 			setTitle(R.string.activity_contact_update);
 			dialog.show(getFragmentManager(), null);
@@ -227,13 +227,13 @@ public class ModifyContactActivity extends BaseActivity {
 		}
 
 		/**
-		 * ±£´æ°´Å¥ÊÂ¼ş
+		 * ä¿å­˜æŒ‰é’®äº‹ä»¶
 		 */
 		btnSubmit.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// ÑéÖ¤Êı¾İÊÇ·ñÕıÈ·
+				// éªŒè¯æ•°æ®æ˜¯å¦æ­£ç¡®
 				String name = etName.getText().toString().trim();
 				int cid = (int) spClass.getSelectedItemId();
 				String phone = etPhone.getText().toString().trim();
@@ -243,22 +243,22 @@ public class ModifyContactActivity extends BaseActivity {
 				String remark = etRemark.getText().toString().trim();
 				boolean flag = true;
 				if (name.equals("")) {
-					etName.setError("ĞÕÃû²»ÄÜÎª¿Õ£¡");
+					etName.setError("å§“åä¸èƒ½ä¸ºç©ºï¼");
 					flag = false;
 				}
 				if (phone.equals("")) {
-					etPhone.setError("ÊÖ»úºÅ²»ÄÜÎª¿Õ£¡");
+					etPhone.setError("æ‰‹æœºå·ä¸èƒ½ä¸ºç©ºï¼");
 					flag = false;
 				} else if (!RegexUtil.isPhone(phone)) {
-					etPhone.setError("ÇëÊäÈëÕıÈ·µÄÊÖ»úºÅ£¡");
+					etPhone.setError("è¯·è¾“å…¥æ­£ç¡®çš„æ‰‹æœºå·ï¼");
 					flag = false;
 				}
 				if (!email.equals("") && !RegexUtil.isEmail(email)) {
-					etEmail.setError("ÇëÊäÈëÕıÈ·µÄÓÊÏä£¡");
+					etEmail.setError("è¯·è¾“å…¥æ­£ç¡®çš„é‚®ç®±ï¼");
 					flag = false;
 				}
 
-				// ÅĞ¶ÏÊÇ·ñÍ¨¹ı
+				// åˆ¤æ–­æ˜¯å¦é€šè¿‡
 				if (!flag) {
 					return;
 				}
@@ -271,13 +271,13 @@ public class ModifyContactActivity extends BaseActivity {
 		});
 
 		/**
-		 * µã»÷È¡ÏûÊÂ¼ş
+		 * ç‚¹å‡»å–æ¶ˆäº‹ä»¶
 		 */
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// ÉèÖÃ·µ»ØÖµÎª È¡Ïû
+				// è®¾ç½®è¿”å›å€¼ä¸º å–æ¶ˆ
 				setResult(Activity.RESULT_CANCELED);
 				BaseApplication.getInstance().finishActivity(
 						ModifyContactActivity.class);
@@ -293,7 +293,7 @@ public class ModifyContactActivity extends BaseActivity {
 	}
 
 	/**
-	 * ¼ÓÔØ°à¼¶ÁĞ±í
+	 * åŠ è½½ç­çº§åˆ—è¡¨
 	 * 
 	 * @author zhenyun
 	 * 
@@ -311,7 +311,7 @@ public class ModifyContactActivity extends BaseActivity {
 	}
 
 	/**
-	 * ¸ù¾İID£¬¼ÓÔØÁªÏµĞÅÏ¢
+	 * æ ¹æ®IDï¼ŒåŠ è½½è”ç³»ä¿¡æ¯
 	 * 
 	 * @author zhenyun
 	 * 
@@ -332,7 +332,7 @@ public class ModifyContactActivity extends BaseActivity {
 	}
 
 	/**
-	 * ±£´æÁªÏµÈËĞÅÏ¢
+	 * ä¿å­˜è”ç³»äººä¿¡æ¯
 	 * 
 	 * @author zhenyun
 	 * 

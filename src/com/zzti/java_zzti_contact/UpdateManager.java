@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+ï»¿package com.zzti.java_zzti_contact;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,31 +28,31 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 /**
- * ×Ô¶¯¸üĞÂ
+ * è‡ªåŠ¨æ›´æ–°
  * 
  * @author zhenyun
  * 
  */
 public class UpdateManager {
-	/* ÏÂÔØxml */
+	/* ä¸‹è½½xml */
 	private static final int DOWNLOAD_XML = 0;
-	/* ÏÂÔØÖĞ */
+	/* ä¸‹è½½ä¸­ */
 	private static final int DOWNLOAD = 1;
-	/* ÏÂÔØ½áÊø */
+	/* ä¸‹è½½ç»“æŸ */
 	private static final int DOWNLOAD_FINISH = 2;
-	/* ±£´æ½âÎöµÄXMLĞÅÏ¢ */
+	/* ä¿å­˜è§£æçš„XMLä¿¡æ¯ */
 	HashMap<String, String> mHashMap;
-	/* ÏÂÔØ±£´æÂ·¾¶ */
+	/* ä¸‹è½½ä¿å­˜è·¯å¾„ */
 	private String mSavePath;
-	/* ¼ÇÂ¼½ø¶ÈÌõÊıÁ¿ */
+	/* è®°å½•è¿›åº¦æ¡æ•°é‡ */
 	private int progress;
-	/* ÊÇ·ñÈ¡Ïû¸üĞÂ */
+	/* æ˜¯å¦å–æ¶ˆæ›´æ–° */
 	private boolean cancelUpdate = false;
 
 	private Context mContext;
-	/* ±¾µØversionCode */
+	/* æœ¬åœ°versionCode */
 	private int versionCode;
-	/* ¸üĞÂ½ø¶ÈÌõ */
+	/* æ›´æ–°è¿›åº¦æ¡ */
 	private ProgressBar mProgress;
 	private Dialog mDownloadDialog;
 
@@ -62,16 +62,16 @@ public class UpdateManager {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case DOWNLOAD_XML:
-				// ¼ì²éÊÇ·ñ¸üĞÂ
+				// æ£€æŸ¥æ˜¯å¦æ›´æ–°
 				checkUpdate();
 				break;
-			// ÕıÔÚÏÂÔØ
+			// æ­£åœ¨ä¸‹è½½
 			case DOWNLOAD:
-				// ÉèÖÃ½ø¶ÈÌõÎ»ÖÃ
+				// è®¾ç½®è¿›åº¦æ¡ä½ç½®
 				mProgress.setProgress(progress);
 				break;
 			case DOWNLOAD_FINISH:
-				// °²×°ÎÄ¼ş
+				// å®‰è£…æ–‡ä»¶
 				installApk();
 				break;
 			default:
@@ -86,20 +86,20 @@ public class UpdateManager {
 	}
 
 	/**
-	 * Ê×ÏÈÏÂÔØxml,È»ºóÔÙ½âÎö£¬¶Ô±È
+	 * é¦–å…ˆä¸‹è½½xml,ç„¶åå†è§£æï¼Œå¯¹æ¯”
 	 */
 	public void downloadXml() {
 		new Thread(new downloadXmlThread()).start();
 	}
 
 	/**
-	 * ¼ì²âÈí¼ş¸üĞÂ
+	 * æ£€æµ‹è½¯ä»¶æ›´æ–°
 	 */
 	private void checkUpdate() {
 		int serviceCode = Integer.valueOf(mHashMap.get("version"));
-		// °æ±¾ÅĞ¶Ï
+		// ç‰ˆæœ¬åˆ¤æ–­
 		if (serviceCode > versionCode) {
-			// ÏÔÊ¾ÌáÊ¾¶Ô»°¿ò
+			// æ˜¾ç¤ºæç¤ºå¯¹è¯æ¡†
 			showNoticeDialog();
 		} else {
 			Toast.makeText(mContext, R.string.soft_update_no, Toast.LENGTH_SHORT)
@@ -108,24 +108,24 @@ public class UpdateManager {
 	}
 
 	/**
-	 * ÏÔÊ¾Èí¼ş¸üĞÂ¶Ô»°¿ò
+	 * æ˜¾ç¤ºè½¯ä»¶æ›´æ–°å¯¹è¯æ¡†
 	 */
 	private void showNoticeDialog() {
-		// ¹¹Ôì¶Ô»°¿ò
+		// æ„é€ å¯¹è¯æ¡†
 		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 		builder.setTitle(R.string.soft_update_title);
 		builder.setMessage(R.string.soft_update_info);
-		// ¸üĞÂ
+		// æ›´æ–°
 		builder.setPositiveButton(R.string.soft_update_updatebtn,
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
-						// ÏÔÊ¾ÏÂÔØ¶Ô»°¿ò
+						// æ˜¾ç¤ºä¸‹è½½å¯¹è¯æ¡†
 						showDownloadDialog();
 					}
 				});
-		// ÉÔºó¸üĞÂ
+		// ç¨åæ›´æ–°
 		builder.setNegativeButton(R.string.soft_update_later,
 				new DialogInterface.OnClickListener() {
 					@Override
@@ -138,43 +138,43 @@ public class UpdateManager {
 	}
 
 	/**
-	 * ÏÔÊ¾Èí¼şÏÂÔØ¶Ô»°¿ò
+	 * æ˜¾ç¤ºè½¯ä»¶ä¸‹è½½å¯¹è¯æ¡†
 	 */
 	private void showDownloadDialog() {
-		// ¹¹ÔìÈí¼şÏÂÔØ¶Ô»°¿ò
+		// æ„é€ è½¯ä»¶ä¸‹è½½å¯¹è¯æ¡†
 		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 		builder.setTitle(R.string.soft_updating);
-		// ¸øÏÂÔØ¶Ô»°¿òÔö¼Ó½ø¶ÈÌõ
+		// ç»™ä¸‹è½½å¯¹è¯æ¡†å¢åŠ è¿›åº¦æ¡
 		final LayoutInflater inflater = LayoutInflater.from(mContext);
 		View v = inflater.inflate(R.layout.softupdate_progress, null);
 		mProgress = (ProgressBar) v.findViewById(R.id.update_progress);
 		builder.setView(v);
-		// È¡Ïû¸üĞÂ
+		// å–æ¶ˆæ›´æ–°
 		builder.setNegativeButton(R.string.soft_update_cancel,
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
-						// ÉèÖÃÈ¡Ïû×´Ì¬
+						// è®¾ç½®å–æ¶ˆçŠ¶æ€
 						cancelUpdate = true;
 					}
 				});
 		mDownloadDialog = builder.create();
 		mDownloadDialog.show();
-		// ÏÖÔÚÎÄ¼ş
+		// ç°åœ¨æ–‡ä»¶
 		downloadApk();
 	}
 
 	/**
-	 * ÏÂÔØapkÎÄ¼ş
+	 * ä¸‹è½½apkæ–‡ä»¶
 	 */
 	private void downloadApk() {
-		// Æô¶¯ĞÂÏß³ÌÏÂÔØÈí¼ş
+		// å¯åŠ¨æ–°çº¿ç¨‹ä¸‹è½½è½¯ä»¶
 		new downloadApkThread().start();
 	}
 
 	/**
-	 * ÏÂÔØxmlÎÄ¼ş
+	 * ä¸‹è½½xmlæ–‡ä»¶
 	 * 
 	 * @author zhenyun
 	 * 
@@ -185,17 +185,17 @@ public class UpdateManager {
 		public void run() {
 			// TODO Auto-generated method stub
 			try {
-				URL url = new URL(UpdateManager.this.url);// ´´½¨version.xmlµÄÁ¬½ÓµØÖ·¡£
+				URL url = new URL(UpdateManager.this.url);// åˆ›å»ºversion.xmlçš„è¿æ¥åœ°å€ã€‚
 				HttpURLConnection connection = (HttpURLConnection) url
 						.openConnection();
 				connection.setRequestMethod("GET");
 				if(connection.getResponseCode()!=200)
 					return ;
-				InputStream is = connection.getInputStream();// ´ÓÊäÈëÁ÷»ñÈ¡Êı¾İ
+				InputStream is = connection.getInputStream();// ä»è¾“å…¥æµè·å–æ•°æ®
 				
 				mHashMap = new HashMap<String, String>();
 				XmlPullParser parser = Xml.newPullParser();
-				parser.setInput(is, "UTF-8");// ÉèÖÃ½âÎöµÄÊı¾İÔ´
+				parser.setInput(is, "UTF-8");// è®¾ç½®è§£æçš„æ•°æ®æº
 				int type = parser.getEventType();
 				while (type != XmlPullParser.END_DOCUMENT) {
 					switch (type) {
@@ -223,7 +223,7 @@ public class UpdateManager {
 	}
 
 	/**
-	 * ÏÂÔØÎÄ¼şÏß³Ì
+	 * ä¸‹è½½æ–‡ä»¶çº¿ç¨‹
 	 * 
 	 * @author coolszy
 	 * @date 2012-4-26
@@ -233,75 +233,75 @@ public class UpdateManager {
 		@Override
 		public void run() {
 			try {
-				// ÅĞ¶ÏSD¿¨ÊÇ·ñ´æÔÚ£¬²¢ÇÒÊÇ·ñ¾ßÓĞ¶ÁĞ´È¨ÏŞ
+				// åˆ¤æ–­SDå¡æ˜¯å¦å­˜åœ¨ï¼Œå¹¶ä¸”æ˜¯å¦å…·æœ‰è¯»å†™æƒé™
 				if (Environment.getExternalStorageState().equals(
 						Environment.MEDIA_MOUNTED)) {
-					// »ñµÃ´æ´¢¿¨µÄÂ·¾¶
+					// è·å¾—å­˜å‚¨å¡çš„è·¯å¾„
 					String sdpath = Environment.getExternalStorageDirectory()
 							+ "/";
 					mSavePath = sdpath + "download";
 					URL url = new URL(mHashMap.get("url"));
-					// ´´½¨Á¬½Ó
+					// åˆ›å»ºè¿æ¥
 					HttpURLConnection conn = (HttpURLConnection) url
 							.openConnection();
 					conn.connect();
-					// »ñÈ¡ÎÄ¼ş´óĞ¡
+					// è·å–æ–‡ä»¶å¤§å°
 					int length = conn.getContentLength();
-					// ´´½¨ÊäÈëÁ÷
+					// åˆ›å»ºè¾“å…¥æµ
 					InputStream is = conn.getInputStream();
 
 					File file = new File(mSavePath);
-					// ÅĞ¶ÏÎÄ¼şÄ¿Â¼ÊÇ·ñ´æÔÚ
+					// åˆ¤æ–­æ–‡ä»¶ç›®å½•æ˜¯å¦å­˜åœ¨
 					if (!file.exists()) {
 						file.mkdir();
 					}
 					File apkFile = new File(mSavePath, mHashMap.get("name"));
 					FileOutputStream fos = new FileOutputStream(apkFile);
 					int count = 0;
-					// »º´æ
+					// ç¼“å­˜
 					byte buf[] = new byte[1024];
-					// Ğ´Èëµ½ÎÄ¼şÖĞ
+					// å†™å…¥åˆ°æ–‡ä»¶ä¸­
 					do {
 						int numread = is.read(buf);
 						count += numread;
-						// ¼ÆËã½ø¶ÈÌõÎ»ÖÃ
+						// è®¡ç®—è¿›åº¦æ¡ä½ç½®
 						progress = (int) (((float) count / length) * 100);
-						// ¸üĞÂ½ø¶È
+						// æ›´æ–°è¿›åº¦
 						mHandler.sendEmptyMessage(DOWNLOAD);
 						if (numread <= 0) {
-							// ÏÂÔØÍê³É
+							// ä¸‹è½½å®Œæˆ
 							mHandler.sendEmptyMessage(DOWNLOAD_FINISH);
 							break;
 						}
-						// Ğ´ÈëÎÄ¼ş
+						// å†™å…¥æ–‡ä»¶
 						fos.write(buf, 0, numread);
-					} while (!cancelUpdate);// µã»÷È¡Ïû¾ÍÍ£Ö¹ÏÂÔØ.
+					} while (!cancelUpdate);// ç‚¹å‡»å–æ¶ˆå°±åœæ­¢ä¸‹è½½.
 					fos.close();
 					is.close();
 				}
 				else
 				{
-					Log.i("---->","ÎŞĞ§´æ´¢¿¨");
+					Log.i("---->","æ— æ•ˆå­˜å‚¨å¡");
 				}
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			// È¡ÏûÏÂÔØ¶Ô»°¿òÏÔÊ¾
+			// å–æ¶ˆä¸‹è½½å¯¹è¯æ¡†æ˜¾ç¤º
 			mDownloadDialog.dismiss();
 		}
 	};
 
 	/**
-	 * °²×°APKÎÄ¼ş
+	 * å®‰è£…APKæ–‡ä»¶
 	 */
 	private void installApk() {
 		File apkfile = new File(mSavePath, mHashMap.get("name"));
 		if (!apkfile.exists()) {
 			return;
 		}
-		// Í¨¹ıIntent°²×°APKÎÄ¼ş
+		// é€šè¿‡Intentå®‰è£…APKæ–‡ä»¶
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setDataAndType(Uri.parse("file://" + apkfile.toString()),
 				"application/vnd.android.package-archive");

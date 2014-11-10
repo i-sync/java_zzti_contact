@@ -1,4 +1,4 @@
-package com.zzti.utils;
+ï»¿package com.zzti.utils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,8 +12,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * 
- * @Title:WebServiceUtil Description£º WebService
- *                       ksoap2¿ªÔ´°üµÄ¸¨Öú£¬ÔÚ²»ÓÃJSON´«Êä¶ÔÏóÊ±Ê¹ÓÃ£¬Ä¬ÈÏdotNetÎªfalse£¬²ÉÓÃVer11Ğ­Òé
+ * @Title:WebServiceUtil Descriptionï¼š WebService
+ *                       ksoap2å¼€æºåŒ…çš„è¾…åŠ©ï¼Œåœ¨ä¸ç”¨JSONä¼ è¾“å¯¹è±¡æ—¶ä½¿ç”¨ï¼Œé»˜è®¤dotNetä¸ºfalseï¼Œé‡‡ç”¨Ver11åè®®
  * @author zhuys
  * @date 2013-7-14
  * 
@@ -28,18 +28,18 @@ public class WebServiceObject {
 	private WebServiceObject(String url, String nameSpace, String methodName) {
 
 		this.nameSpace = nameSpace;
-		// ´´½¨HttpTransportSE´«Êä¶ÔÏó
+		// åˆ›å»ºHttpTransportSEä¼ è¾“å¯¹è±¡
 		ht = new HttpTransportSE(url);
 		ht.debug = false;
-		// ´´½¨Envelop¶ÔÏó
+		// åˆ›å»ºEnvelopå¯¹è±¡
 		envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		envelope.dotNet = false;
-		// ´´½¨SoapObject¶ÔÏó
+		// åˆ›å»ºSoapObjectå¯¹è±¡
 		soapObject = new SoapObject(nameSpace, methodName);
 	}
 
 	/**
-	 * µ÷ÓÃWebService
+	 * è°ƒç”¨WebService
 	 * 
 	 * @return
 	 * @throws IOException
@@ -54,8 +54,8 @@ public class WebServiceObject {
 
 	/**
 	 * 
-	 * @Title:Builder Description£º
-	 *                Î±builderÄ£Ê½£¬ÆäÊµÔÚ´´½¨BuilderÊ±WebServiceObject¾ÍÒÑ¾­´´½¨ºÃÁË
+	 * @Title:Builder Descriptionï¼š
+	 *                ä¼ªbuilderæ¨¡å¼ï¼Œå…¶å®åœ¨åˆ›å»ºBuilderæ—¶WebServiceObjectå°±å·²ç»åˆ›å»ºå¥½äº†
 	 * @author zhuys
 	 * @date 2013-7-16
 	 * 
@@ -145,7 +145,7 @@ public class WebServiceObject {
 		}*/
 
 		/**
-		 * »¹ĞèÒªµ÷ÓÃmapº¯ÊıÌí¼ÓÓ³Éä,×Ô¶¨Òå¶ÔÏóÄÚÒıÓÃµÄÃ¿¸ö×Ô¶¨Òå¶ÔÏó¶¼ĞèÒªµ÷ÓÃmap
+		 * è¿˜éœ€è¦è°ƒç”¨mapå‡½æ•°æ·»åŠ æ˜ å°„,è‡ªå®šä¹‰å¯¹è±¡å†…å¼•ç”¨çš„æ¯ä¸ªè‡ªå®šä¹‰å¯¹è±¡éƒ½éœ€è¦è°ƒç”¨map
 		 * 
 		 * @param paramName
 		 * @param value
@@ -157,7 +157,7 @@ public class WebServiceObject {
 		}
 
 		/**
-		 * »¹ĞèÒªµ÷ÓÃmapº¯ÊıÌí¼ÓÓ³Éä,×Ô¶¨Òå¶ÔÏóÄÚÒıÓÃµÄÃ¿¸ö×Ô¶¨Òå¶ÔÏó¶¼ĞèÒªµ÷ÓÃmap
+		 * è¿˜éœ€è¦è°ƒç”¨mapå‡½æ•°æ·»åŠ æ˜ å°„,è‡ªå®šä¹‰å¯¹è±¡å†…å¼•ç”¨çš„æ¯ä¸ªè‡ªå®šä¹‰å¯¹è±¡éƒ½éœ€è¦è°ƒç”¨map
 		 * 
 		 * @param paramName
 		 * @param list
@@ -172,7 +172,7 @@ public class WebServiceObject {
 		}*/
 
 		/**
-		 * Ìí¼Ó×Ô¶¨Òå¶ÔÏóµÄÓ³Éä£¬µ±server¶Ë¶ÔÏóµÄÃû³ÆÓë±¾µØ¶ÔÏóÃû³ÆÏàÍ¬Ê±µ÷ÓÃ
+		 * æ·»åŠ è‡ªå®šä¹‰å¯¹è±¡çš„æ˜ å°„ï¼Œå½“serverç«¯å¯¹è±¡çš„åç§°ä¸æœ¬åœ°å¯¹è±¡åç§°ç›¸åŒæ—¶è°ƒç”¨
 		 * 
 		 * @param localComplexClass
 		 * @return
@@ -183,7 +183,7 @@ public class WebServiceObject {
 		}
 
 		/**
-		 * Ìí¼Ó×Ô¶¨Òå¶ÔÏóµÄÓ³Éä£¬µ±server¶Ë¶ÔÏóµÄÃû³ÆÓë±¾µØ¶ÔÏóÃû³Æ²»Í¬Ê±µ÷ÓÃ
+		 * æ·»åŠ è‡ªå®šä¹‰å¯¹è±¡çš„æ˜ å°„ï¼Œå½“serverç«¯å¯¹è±¡çš„åç§°ä¸æœ¬åœ°å¯¹è±¡åç§°ä¸åŒæ—¶è°ƒç”¨
 		 * 
 		 * @param localComplexClass
 		 * @return
@@ -197,7 +197,7 @@ public class WebServiceObject {
 		}
 
 		/**
-		 * ÉèÖÃ¼æÈİdotnetÄ£Ê½£¬Ä¬ÈÏÎªtrue
+		 * è®¾ç½®å…¼å®¹dotnetæ¨¡å¼ï¼Œé»˜è®¤ä¸ºtrue
 		 * 
 		 * @param dotNet
 		 * @return

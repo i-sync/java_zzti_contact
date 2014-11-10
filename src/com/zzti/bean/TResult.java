@@ -1,4 +1,4 @@
-package com.zzti.bean;
+﻿package com.zzti.bean;
 
 import java.io.Serializable;
 

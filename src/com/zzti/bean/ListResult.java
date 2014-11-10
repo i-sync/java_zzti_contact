@@ -1,4 +1,4 @@
-package com.zzti.bean;
+锘縫ackage com.zzti.bean;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +11,7 @@ public class ListResult<T> extends Result implements Serializable {
 	 */
 	private static final long serialVersionUID = 9120922723371978006L;
 	/**
-	 * 返回结果集合
+	 * 杩斿洖缁撴灉闆嗗悎
 	 */
 	private List<T> list;
 	public List<T> getList()

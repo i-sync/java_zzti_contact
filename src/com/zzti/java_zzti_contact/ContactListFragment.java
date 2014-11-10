@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+ï»¿package com.zzti.java_zzti_contact;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class ContactListFragment extends Fragment {
 	private ListView listView;
 
 	private DialogFrag dialog;
-	private int cid;// °à¼¶ID
+	private int cid;// ç­çº§ID
 
 	public ContactListFragment() {
 	}
@@ -45,7 +45,7 @@ public class ContactListFragment extends Fragment {
 		public void handleMessage(android.os.Message msg) {
 			ListResult<Contact> result = (ListResult<Contact>) msg.obj;
 			if (result == null) {
-				Toast.makeText(getActivity(), "Êı¾İÎª£ºnull", Toast.LENGTH_LONG)
+				Toast.makeText(getActivity(), "æ•°æ®ä¸ºï¼šnull", Toast.LENGTH_LONG)
 						.show();
 			} else {
 				if (result.getResult() != 1) {
@@ -58,7 +58,7 @@ public class ContactListFragment extends Fragment {
 						result.getList(), getActivity());
 				listView.setAdapter(adapter);
 			}
-			// Òş²Ø
+			// éšè—
 			dialog.dismiss();
 		};
 	};
@@ -76,10 +76,10 @@ public class ContactListFragment extends Fragment {
 		listView = (ListView) rootView.findViewById(R.id.lv_contact_list);
 		dialog = DialogFrag.getInstance();
 
-		// ¼ÓÔØÊı¾İ
+		// åŠ è½½æ•°æ®
 		dialog.show(getFragmentManager(), null);
 		new Thread(new LoadContactList()).start();
-		// listViewµã»÷ÊÂ¼ş
+		// listViewç‚¹å‡»äº‹ä»¶
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -96,7 +96,7 @@ public class ContactListFragment extends Fragment {
 	}
 
 	/**
-	 * ¸ù¾İ°à¼¶ID¼ÓÔØÁªÏµÁĞ±í
+	 * æ ¹æ®ç­çº§IDåŠ è½½è”ç³»åˆ—è¡¨
 	 * 
 	 * @author zhenyun
 	 * 
@@ -118,7 +118,7 @@ public class ContactListFragment extends Fragment {
 	}
 
 	/**
-	 * ×Ô¶¨ÒåÊÊÅäÆ÷
+	 * è‡ªå®šä¹‰é€‚é…å™¨
 	 * 
 	 * @author zhenyun
 	 * 
@@ -178,9 +178,9 @@ public class ContactListFragment extends Fragment {
 				item = (ViewHolder) convertView.getTag();
 			}
 
-			/** ÉèÖÃTextViewÏÔÊ¾µÄÄÚÈİ£¬¼´ÎÒÃÇ´æ·ÅÔÚ¶¯Ì¬Êı×éÖĞµÄÊı¾İ */
+			/** è®¾ç½®TextViewæ˜¾ç¤ºçš„å†…å®¹ï¼Œå³æˆ‘ä»¬å­˜æ”¾åœ¨åŠ¨æ€æ•°ç»„ä¸­çš„æ•°æ® */
 			item.name.setText(list.get(position).getName());
-			// ÉèÖÃµã»÷ºÅÂë½øÈë²¦ºÅ½çÃæ
+			// è®¾ç½®ç‚¹å‡»å·ç è¿›å…¥æ‹¨å·ç•Œé¢
 			/*
 			 * String phone= list.get(position).getPhone(); SpannableString span
 			 * = new SpannableString(phone); item.phone.setText(span);
@@ -194,7 +194,7 @@ public class ContactListFragment extends Fragment {
 			item.remark.setText(list.get(position).getRemark());
 
 			/**
-			 * µã»÷ĞŞ¸Ä°´Å¥ÊÂ¼ş
+			 * ç‚¹å‡»ä¿®æ”¹æŒ‰é’®äº‹ä»¶
 			 */
 			item.btnUpdate.setOnClickListener(new View.OnClickListener() {
 
@@ -202,7 +202,7 @@ public class ContactListFragment extends Fragment {
 				public void onClick(View v) {
 					Intent intent = new Intent(getActivity(),
 							ModifyContactActivity.class);
-					intent.putExtra("type", 1);// type:0ÎªÌí¼Ó£¬1ÎªĞŞ¸Ä
+					intent.putExtra("type", 1);// type:0ä¸ºæ·»åŠ ï¼Œ1ä¸ºä¿®æ”¹
 					intent.putExtra("id", (int) getItemId(position));
 					// startActivity(intent);
 					getActivity().startActivityForResult(intent,

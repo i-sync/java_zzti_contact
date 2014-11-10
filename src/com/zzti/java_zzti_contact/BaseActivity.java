@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+ï»¿package com.zzti.java_zzti_contact;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ public class BaseActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
-		//Ìí¼ÓActivityµ½Õ»ÖĞ
+		//æ·»åŠ Activityåˆ°æ ˆä¸­
 		BaseApplication.getInstance().addActivity(this);
 	}
 	
@@ -18,7 +18,7 @@ public class BaseActivity extends Activity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		//½áÊøActivity ´ÓÕ»ÖĞÒÆ³ı¸Ã Activity
+		//ç»“æŸActivity ä»æ ˆä¸­ç§»é™¤è¯¥ Activity
 		BaseApplication.getInstance().finishActivity(this);
 	}
 }

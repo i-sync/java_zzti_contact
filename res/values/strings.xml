@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">通讯录</string>
+    <string name="app_name">Contacts</string>
     <string name="activity_contact_add">添加联系人</string>
     <string name="activity_contact_update">修改联系人</string>
     <string name="activity_contact_info">联系人信息</string>

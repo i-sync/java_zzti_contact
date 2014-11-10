@@ -1,4 +1,4 @@
-package com.zzti.bean;
+ï»¿package com.zzti.bean;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -18,7 +18,7 @@ public class Common {
 	private Common() {}
 
 	/**
-	 * »ñÈ¡ÊµÀı
+	 * è·å–å®ä¾‹
 	 * 
 	 * @return
 	 */
@@ -34,12 +34,12 @@ public class Common {
 	}
 
 	/**
-	 * »ñÈ¡°à¼¶ÁĞ±í
+	 * è·å–ç­çº§åˆ—è¡¨
 	 * 
 	 * @return
 	 */
 	public ListResult<Class> class_getlist() {
-		// ·½·¨Ãû
+		// æ–¹æ³•å
 		String methodName = "android_class_getlist";
 		WebServiceObject.Builder builder = new WebServiceObject.Builder(
 				SERVICE_URL, SERVICE_NS, methodName);
@@ -56,7 +56,7 @@ public class Common {
 	}
 
 	/**
-	 * »ñÈ¡ÁªÏµÈËÁĞ±í
+	 * è·å–è”ç³»äººåˆ—è¡¨
 	 * 
 	 * @param data
 	 * @return
@@ -81,7 +81,7 @@ public class Common {
 	}
 
 	/**
-	 * ¸ù¾İID»ñÈ¡ÁªÏµÈËĞÅÏ¢
+	 * æ ¹æ®IDè·å–è”ç³»äººä¿¡æ¯
 	 * @param data
 	 * @return
 	 */
@@ -104,7 +104,7 @@ public class Common {
 	}
 	
 	/**
-	 * Ìí¼ÓÁªÏµÈË
+	 * æ·»åŠ è”ç³»äºº
 	 * @param data
 	 * @return
 	 */
@@ -129,7 +129,7 @@ public class Common {
 	}
 	
 	/**
-	 * ĞŞ¸ÄÁªÏµÈË
+	 * ä¿®æ”¹è”ç³»äºº
 	 * @param data
 	 * @return
 	 */

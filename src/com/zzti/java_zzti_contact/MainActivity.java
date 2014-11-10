@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+ï»¿package com.zzti.java_zzti_contact;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -26,31 +26,31 @@ import com.zzti.bean.Class;
 import com.zzti.bean.ListResult;
 //implements OnQueryTextListener
 public class MainActivity extends BaseActivity {
-	// ×ÓActivityÀàĞÍ
+	// å­Activityç±»å‹
 	public static final int SUB_ACTIVITY_MODIFY = 1;
 	public static final int SUB_ACTIVITY_INFO = 2;
 	public static final int SUB_ACTIVITY_ABOUT = 3;
 
 	private static final int RESUME = 0;
 	private static final int CLASS_LOAD = 1;
-	private long exitTime;// ÍË³öÈ·ÈÏ
+	private long exitTime;// é€€å‡ºç¡®è®¤
 	private DrawerLayout mDrawerLayout;
 	private ListView mListView;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
-	private int position;// µ±Ç°leftÑ¡ÔñÎ»ÖÃ
-	private boolean isConnected;// ±êÊ¶ÍøÂçÊÇ·ñÁ¬½Ó
+	private int position;// å½“å‰lefté€‰æ‹©ä½ç½®
+	private boolean isConnected;// æ ‡è¯†ç½‘ç»œæ˜¯å¦è¿æ¥
 	
 	private DialogFrag dialog ;
 
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
-			case CLASS_LOAD:// °à¼¶ÁĞ±í¼ÓÔØ
+			case CLASS_LOAD:// ç­çº§åˆ—è¡¨åŠ è½½
 				ListResult<Class> result = (ListResult<Class>) msg.obj;
 				if (result == null) {
-					Toast.makeText(MainActivity.this, "Ã»ÓĞ²éÑ¯µ½Êı¾İ£¡",
+					Toast.makeText(MainActivity.this, "æ²¡æœ‰æŸ¥è¯¢åˆ°æ•°æ®ï¼",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
@@ -67,7 +67,7 @@ public class MainActivity extends BaseActivity {
 				dialog.dismiss();
 				selectItem(position);
 				break;
-			case RESUME:// Ö»ÓĞÔÚ±£´æºóË¢ĞÂÁĞ±í
+			case RESUME:// åªæœ‰åœ¨ä¿å­˜ååˆ·æ–°åˆ—è¡¨
 				if (mListView.getAdapter() == null)
 					return;
 				selectItem(position);
@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		// ÅĞ¶ÏÍøÂçÊÇ·ñÁ¬½Ó
+		// åˆ¤æ–­ç½‘ç»œæ˜¯å¦è¿æ¥
 		isConnected = NetworkManager.getInstance().isNetworkConnected(
 				MainActivity.this);
 		dialog = DialogFrag.getInstance();
@@ -119,19 +119,19 @@ public class MainActivity extends BaseActivity {
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		// ÅĞ¶ÏÍøÂçÊÇ·ñÁ¬½Ó
+		// åˆ¤æ–­ç½‘ç»œæ˜¯å¦è¿æ¥
 		if (!isConnected) {
-			Toast.makeText(MainActivity.this, "ÍøÂçÎ´Á¬½Ó,Çë¼ì²éÍøÂç£¡", Toast.LENGTH_LONG)
+			Toast.makeText(MainActivity.this, "ç½‘ç»œæœªè¿æ¥,è¯·æ£€æŸ¥ç½‘ç»œï¼", Toast.LENGTH_LONG)
 					.show();
 			return;
 		}
-		// ¿ªÆôÏß³Ì
+		// å¼€å¯çº¿ç¨‹
 		dialog.show(getFragmentManager(), null);
 		new Thread(new LoadClassInfo()).start();
 	}
 
 	/**
-	 * ÖØĞ´·½·¨(µ±×ÓActivity½áÊø£¬·µ»ØÊı¾İÔÚ·½·¨ÖĞ´¦Àí)
+	 * é‡å†™æ–¹æ³•(å½“å­Activityç»“æŸï¼Œè¿”å›æ•°æ®åœ¨æ–¹æ³•ä¸­å¤„ç†)
 	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity {
 	}
 
 	/**
-	 * ¼ÓÔØ°à¼¶ÁĞ±íĞÅÏ¢
+	 * åŠ è½½ç­çº§åˆ—è¡¨ä¿¡æ¯
 	 * 
 	 * @author zhenyun
 	 * 
@@ -173,12 +173,12 @@ public class MainActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 
 		getMenuInflater().inflate(R.menu.main, menu);
-		// È¡µÃidÎªR.id.action_searchµÄMenuItem£¬ÓÉÓÚxmlÎÄ¼şÖĞÒÑ¾­Ö¸¶¨android:actionViewClass="android.widget.SearchView"
-		// ËùÒÔÍ¨¹ıgetActionView()±ã¿ÉÒÔÏÔÊ½×ª»»ÎªSearchView
+		// å–å¾—idä¸ºR.id.action_searchçš„MenuItemï¼Œç”±äºxmlæ–‡ä»¶ä¸­å·²ç»æŒ‡å®šandroid:actionViewClass="android.widget.SearchView"
+		// æ‰€ä»¥é€šè¿‡getActionView()ä¾¿å¯ä»¥æ˜¾å¼è½¬æ¢ä¸ºSearchView
 		// SearchView searchView =
 		// (SearchView)menu.findItem(R.id.action_search).getActionView();
-		// ×¢²áËÑË÷ÊäÈëÀ¸µÄÊÂ¼ş¼àÌıÆ÷£¬À´×ÔÓÚÊµÏÖ½Ó¿Ú£ºandroid.widget.SearchView.OnQueryTextListener
-		// ÊÂ¼ş»Øµ÷·½·¨Îª£ºonQueryTextSubmit()¿ªÊ¼ËÑË÷ÊÂ¼ş£»onQueryTextChange()ÎÄ±¾¸Ä±äÊÂ¼ş
+		// æ³¨å†Œæœç´¢è¾“å…¥æ çš„äº‹ä»¶ç›‘å¬å™¨ï¼Œæ¥è‡ªäºå®ç°æ¥å£ï¼šandroid.widget.SearchView.OnQueryTextListener
+		// äº‹ä»¶å›è°ƒæ–¹æ³•ä¸ºï¼šonQueryTextSubmit()å¼€å§‹æœç´¢äº‹ä»¶ï¼›onQueryTextChange()æ–‡æœ¬æ”¹å˜äº‹ä»¶
 		// searchView.setOnQueryTextListener(this);
 
 		return super.onCreateOptionsMenu(menu);
@@ -222,8 +222,8 @@ public class MainActivity extends BaseActivity {
 		case R.id.action_add_contact:
 			Intent intent = new Intent(MainActivity.this,
 					ModifyContactActivity.class);
-			intent.putExtra("type", 0);// type 0ÎªÌí¼Ó£¬1ÎªĞŞ¸Ä
-			intent.putExtra("id", 0);// Ìí¼ÓÊ±idÎª0
+			intent.putExtra("type", 0);// type 0ä¸ºæ·»åŠ ï¼Œ1ä¸ºä¿®æ”¹
+			intent.putExtra("id", 0);// æ·»åŠ æ—¶idä¸º0
 			// startActivity(intent);
 			startActivityForResult(intent, SUB_ACTIVITY_MODIFY);
 			return true;
@@ -244,7 +244,7 @@ public class MainActivity extends BaseActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			// ´æ´¢µã»÷µÄ°à¼¶Î»ÖÃ
+			// å­˜å‚¨ç‚¹å‡»çš„ç­çº§ä½ç½®
 			MainActivity.this.position = position;
 			// Class data = (Class) mListView.getAdapter().getItem(position);
 			selectItem(position);
@@ -252,7 +252,7 @@ public class MainActivity extends BaseActivity {
 	}
 
 	public void selectItem(int position) {
-		Class data = (Class) mListView.getAdapter().getItem(position);// »ñÈ¡class¶ÔÏó
+		Class data = (Class) mListView.getAdapter().getItem(position);// è·å–classå¯¹è±¡
 		Fragment fragment = new ContactListFragment(data.getId());
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction()
@@ -312,11 +312,11 @@ public class MainActivity extends BaseActivity {
 
 	public void exit() {
 		if ((System.currentTimeMillis() - exitTime) > 2000) {
-			Toast.makeText(MainActivity.this, "ÔÙ°´Ò»´ÎÍË³ö", Toast.LENGTH_SHORT)
+			Toast.makeText(MainActivity.this, "å†æŒ‰ä¸€æ¬¡é€€å‡º", Toast.LENGTH_SHORT)
 					.show();
 			exitTime = System.currentTimeMillis();
 		} else {
-			BaseApplication.getInstance().AppExit();// ÍêÈ«ÍË³ö³ÌĞò
+			BaseApplication.getInstance().AppExit();// å®Œå…¨é€€å‡ºç¨‹åº
 		}
 	}
 }

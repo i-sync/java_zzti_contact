@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+﻿package com.zzti.java_zzti_contact;
 
 import android.content.Context;
 import android.util.AttributeSet;

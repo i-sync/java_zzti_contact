@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+ï»¿package com.zzti.java_zzti_contact;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -13,7 +13,7 @@ public class NetworkManager extends BaseActivity {
 	}
 
 	/**
-	 * »ñÈ¡ÊµÀı
+	 * è·å–å®ä¾‹
 	 * 
 	 * @return
 	 */
@@ -29,7 +29,7 @@ public class NetworkManager extends BaseActivity {
 	}
 
 	/**
-	 * ÅĞ¶ÏÍøÂçÊÇ·ñÁ¬½Ó
+	 * åˆ¤æ–­ç½‘ç»œæ˜¯å¦è¿æ¥
 	 * 
 	 * @param context
 	 * @return
@@ -53,7 +53,7 @@ public class NetworkManager extends BaseActivity {
 	}
 
 	/**
-	 * ÅĞ¶ÏWIFIÊÇ·ñÁ¬½Ó
+	 * åˆ¤æ–­WIFIæ˜¯å¦è¿æ¥
 	 * 
 	 * @param context
 	 * @return
@@ -76,7 +76,7 @@ public class NetworkManager extends BaseActivity {
 	}
 
 	/**
-	 * ÅĞ¶ÏÊÖ»úÍøÂçÊÇ·ñ¿ÉÓÃ
+	 * åˆ¤æ–­æ‰‹æœºç½‘ç»œæ˜¯å¦å¯ç”¨
 	 * 
 	 * @param context
 	 * @return
@@ -99,7 +99,7 @@ public class NetworkManager extends BaseActivity {
 	}
 
 	/**
-	 * »ñÈ¡µ±Ç°ÍøÂçÁ¬½ÓµÄÀàĞÍĞÅÏ¢
+	 * è·å–å½“å‰ç½‘ç»œè¿æ¥çš„ç±»å‹ä¿¡æ¯
 	 * 
 	 * @param context
 	 * @return

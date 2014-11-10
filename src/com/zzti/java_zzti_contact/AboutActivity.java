@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+ï»¿package com.zzti.java_zzti_contact;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -25,7 +25,7 @@ public class AboutActivity extends BaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 		
-		// ÅĞ¶ÏÍøÂçÊÇ·ñÁ¬½Ó
+		// åˆ¤æ–­ç½‘ç»œæ˜¯å¦è¿æ¥
 		isConnected = NetworkManager.getInstance().isNetworkConnected(
 				AboutActivity.this);
 
@@ -40,15 +40,15 @@ public class AboutActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				// Ê×ÏÈ¼ì²éÍøÂçÊÇ·ñ¿ÉÓÃ
+				// é¦–å…ˆæ£€æŸ¥ç½‘ç»œæ˜¯å¦å¯ç”¨
 				if (!isConnected) {
-					Toast.makeText(AboutActivity.this, "ÍøÂçÎ´Á¬½Ó,Çë¼ì²éÍøÂç£¡",
+					Toast.makeText(AboutActivity.this, "ç½‘ç»œæœªè¿æ¥,è¯·æ£€æŸ¥ç½‘ç»œï¼",
 							Toast.LENGTH_LONG).show();
 					return;
 				}
 				UpdateManager manager = new UpdateManager(AboutActivity.this,
 						getVersionCode());
-				// ¼ì²éÈí¼ş¸üĞÂ
+				// æ£€æŸ¥è½¯ä»¶æ›´æ–°
 				manager.downloadXml();
 			}
 		});
@@ -70,15 +70,15 @@ public class AboutActivity extends BaseActivity {
 	}
 
 	/**
-	 * »ñÈ¡°æ±¾ĞÅÏ¢£ºversionName
+	 * è·å–ç‰ˆæœ¬ä¿¡æ¯ï¼šversionName
 	 * 
 	 * @return
 	 */
 	public String getVersionName() {
 		try {
-			// »ñÈ¡packagemanagerµÄÊµÀı
+			// è·å–packagemanagerçš„å®ä¾‹
 			PackageManager packageManager = getPackageManager();
-			// getPackageName()ÊÇÄãµ±Ç°ÀàµÄ°üÃû£¬0´ú±íÊÇ»ñÈ¡°æ±¾ĞÅÏ¢
+			// getPackageName()æ˜¯ä½ å½“å‰ç±»çš„åŒ…åï¼Œ0ä»£è¡¨æ˜¯è·å–ç‰ˆæœ¬ä¿¡æ¯
 			PackageInfo packInfo = packageManager.getPackageInfo(
 					getPackageName(), 0);
 			return packInfo.versionName;
@@ -89,15 +89,15 @@ public class AboutActivity extends BaseActivity {
 	}
 
 	/**
-	 * »ñÈ¡°æ±¾ºÅ£ºversionCode
+	 * è·å–ç‰ˆæœ¬å·ï¼šversionCode
 	 * 
 	 * @return
 	 */
 	public int getVersionCode() {
 		try {
-			// »ñÈ¡packagemanagerµÄÊµÀı
+			// è·å–packagemanagerçš„å®ä¾‹
 			PackageManager packageManager = getPackageManager();
-			// getPackageName()ÊÇÄãµ±Ç°ÀàµÄ°üÃû£¬0´ú±íÊÇ»ñÈ¡°æ±¾ĞÅÏ¢
+			// getPackageName()æ˜¯ä½ å½“å‰ç±»çš„åŒ…åï¼Œ0ä»£è¡¨æ˜¯è·å–ç‰ˆæœ¬ä¿¡æ¯
 			PackageInfo packInfo = packageManager.getPackageInfo(
 					getPackageName(), 0);
 			return packInfo.versionCode;

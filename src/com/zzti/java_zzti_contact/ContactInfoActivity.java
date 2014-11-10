@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+ï»¿package com.zzti.java_zzti_contact;
 
 import com.zzti.bean.Contact;
 import com.zzti.bean.ListResult;
@@ -33,7 +33,7 @@ public class ContactInfoActivity extends BaseActivity {
 		public void handleMessage(android.os.Message msg) {
 			TResult<Contact> result = (TResult<Contact>) msg.obj;
 			if (result == null) {
-				Toast.makeText(ContactInfoActivity.this, "²éÑ¯Êı¾İÎªNULL!",
+				Toast.makeText(ContactInfoActivity.this, "æŸ¥è¯¢æ•°æ®ä¸ºNULL!",
 						Toast.LENGTH_SHORT).show();
 				return;
 			}
@@ -47,7 +47,7 @@ public class ContactInfoActivity extends BaseActivity {
 			tvName.setText(data.getName());
 			tvClass.setText(data.getCname());
 			
-			//ÉèÖÃµç»°Á¬½Ó
+			//è®¾ç½®ç”µè¯è¿æ¥
 			String phone = data.getPhone();
 			SpannableString span1 = new SpannableString(phone);
 			tvPhone.setText(span1);
@@ -55,7 +55,7 @@ public class ContactInfoActivity extends BaseActivity {
 			tvPhone.setMovementMethod(LinkMovementMethod.getInstance());
 			
 			//tvPhone.setText(data.getPhone());
-			//ÉèÖÃÓÊÏäÁ¬½Ó
+			//è®¾ç½®é‚®ç®±è¿æ¥
 			String email = data.getEmail().trim();
 			if(!email.equals(""))
 			{
@@ -69,7 +69,7 @@ public class ContactInfoActivity extends BaseActivity {
 			tvCompany.setText(data.getCompany());
 			tvRemark.setText(data.getRemark());
 			
-			//Òş²Ø
+			//éšè—
 			dialog.dismiss();
 		};
 	};
@@ -127,7 +127,7 @@ public class ContactInfoActivity extends BaseActivity {
 	}
 
 	/**
-	 * ¼ÓÔØÁªÏµÈËĞÅÏ¢
+	 * åŠ è½½è”ç³»äººä¿¡æ¯
 	 * @author zhenyun
 	 *
 	 */

@@ -1,4 +1,4 @@
-package com.zzti.java_zzti_contact;
+ï»¿package com.zzti.java_zzti_contact;
 
 import java.util.Stack;
 
@@ -21,7 +21,7 @@ public class BaseApplication extends Application {
 	}
 
 	/**
-	 * add Activity Ìí¼ÓActivityµ½Õ»
+	 * add Activity æ·»åŠ Activityåˆ°æ ˆ
 	 */
 	public void addActivity(Activity activity) {
 		if (activityStack == null) {
@@ -31,7 +31,7 @@ public class BaseApplication extends Application {
 	}
 
 	/**
-	 * get current Activity »ñÈ¡µ±Ç°Activity£¨Õ»ÖĞ×îºóÒ»¸öÑ¹ÈëµÄ£©
+	 * get current Activity è·å–å½“å‰Activityï¼ˆæ ˆä¸­æœ€åä¸€ä¸ªå‹å…¥çš„ï¼‰
 	 */
 	public Activity currentActivity() {
 		Activity activity = activityStack.lastElement();
@@ -39,7 +39,7 @@ public class BaseApplication extends Application {
 	}
 
 	/**
-	 * ½áÊøµ±Ç°Activity£¨Õ»ÖĞ×îºóÒ»¸öÑ¹ÈëµÄ£©
+	 * ç»“æŸå½“å‰Activityï¼ˆæ ˆä¸­æœ€åä¸€ä¸ªå‹å…¥çš„ï¼‰
 	 */
 	public void finishActivity() {
 		Activity activity = activityStack.lastElement();
@@ -47,7 +47,7 @@ public class BaseApplication extends Application {
 	}
 
 	/**
-	 * ½áÊøÖ¸¶¨µÄActivity
+	 * ç»“æŸæŒ‡å®šçš„Activity
 	 */
 	public void finishActivity(Activity activity) {
 		if (activity != null) {
@@ -58,7 +58,7 @@ public class BaseApplication extends Application {
 	}
 
 	/**
-	 * ½áÊøÖ¸¶¨ÀàÃûµÄActivity
+	 * ç»“æŸæŒ‡å®šç±»åçš„Activity
 	 */
 	public void finishActivity(Class<?> cls) {
 		/*for (Activity activity : activityStack) {
@@ -76,7 +76,7 @@ public class BaseApplication extends Application {
 	}
 
 	/**
-	 * ½áÊøËùÓĞActivity
+	 * ç»“æŸæ‰€æœ‰Activity
 	 */
 	public void finishAllActivity() {
 		for (int i = 0, size = activityStack.size(); i < size; i++) {
@@ -88,7 +88,7 @@ public class BaseApplication extends Application {
 	}
 
 	/**
-	 * ÍË³öÓ¦ÓÃ³ÌĞò
+	 * é€€å‡ºåº”ç”¨ç¨‹åº
 	 */
 	public void AppExit() {
 		try {
