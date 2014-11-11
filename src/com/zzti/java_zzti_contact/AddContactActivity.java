@@ -1,4 +1,4 @@
-﻿package com.zzti.java_zzti_contact;
+package com.zzti.java_zzti_contact;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import com.zzti.bean.Common;
 import com.zzti.bean.Contact;
 import com.zzti.bean.ListResult;
 import com.zzti.bean.Result;
-import com.zzti.bean.TResult;
 import com.zzti.utils.RegexUtil;
 
 import android.app.Activity;
@@ -27,13 +26,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ModifyContactActivity extends BaseActivity {
+public class AddContactActivity extends BaseActivity {
 	// 定义常量
 	private final int CLASS_LOAD_FLAG = 1;
-	private final int CONTACT_LOAD_FLAG = 2;
+	//private final int CONTACT_LOAD_FLAG = 2;
 	private final int CONTACT_SAVE_FLAG = 3;
 
-	private int id;// 操作ID
+	//private int id;// 操作ID
 	//private int type;// 操作类型：0为添加，1为修改
 	private EditText etName;
 	private Spinner spClass;
@@ -53,31 +52,30 @@ public class ModifyContactActivity extends BaseActivity {
 			case CLASS_LOAD_FLAG:
 				ListResult result = (ListResult<Class>) msg.obj;
 				if (result == null) {
-					Toast.makeText(ModifyContactActivity.this, "查询数据为NULL!",
+					Toast.makeText(AddContactActivity.this, "查询数据为NULL!",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
 				if (result.getResult() != 1) {
-					Toast.makeText(ModifyContactActivity.this,
+					Toast.makeText(AddContactActivity.this,
 							result.getMessage(), Toast.LENGTH_LONG).show();
 					return;
 				}
 				ComplexAdapter adapter = new ComplexAdapter(
-						ModifyContactActivity.this, result.getList());
+						AddContactActivity.this, result.getList());
 				spClass.setAdapter(adapter);
 				
 				dialog.dismiss();
 				break;
-			
-			case CONTACT_LOAD_FLAG:
+			/*case CONTACT_LOAD_FLAG:
 				TResult<Contact> result1 = (TResult<Contact>) msg.obj;
 				if (result1 == null) {
-					Toast.makeText(ModifyContactActivity.this, "查询数据为NULL!",
+					Toast.makeText(AddContactActivity.this, "查询数据为NULL!",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
 				if (result1.getResult() != 1) {
-					Toast.makeText(ModifyContactActivity.this,
+					Toast.makeText(AddContactActivity.this,
 							result1.getMessage(), Toast.LENGTH_LONG).show();
 					return;
 				}
@@ -99,29 +97,28 @@ public class ModifyContactActivity extends BaseActivity {
 				etRemark.setText(data.getRemark());
 
 				dialog.dismiss();
-				break;
-				
+				break;*/
 			case CONTACT_SAVE_FLAG:
 				Result result2 = (Result) msg.obj;
 				if (result2 == null) {
-					Toast.makeText(ModifyContactActivity.this, "得到数据为NULL!",
+					Toast.makeText(AddContactActivity.this, "得到数据为NULL!",
 							Toast.LENGTH_SHORT).show();
 					return;
 				}
 				if (result2.getResult() != 1) {
-					Toast.makeText(ModifyContactActivity.this,
+					Toast.makeText(AddContactActivity.this,
 							result2.getMessage(), Toast.LENGTH_LONG).show();
 					return;
 				}
 				// Intent intent = new
-				// Intent(ModifyContactActivity.this,MainActivity.class);
+				// Intent(AddContactActivity.this,MainActivity.class);
 				// 保存成功，刷新列表
 				setResult(Activity.RESULT_OK);
 				
 				dialog.dismiss();
 				// 保存成功，关闭当前窗口
 				BaseApplication.getInstance().finishActivity(
-						ModifyContactActivity.class);
+						AddContactActivity.class);
 
 				break;
 			}
@@ -181,30 +178,30 @@ public class ModifyContactActivity extends BaseActivity {
 	}
 
 	/*
-	 * public ModifyContactActivity(int type, int id) { // TODO Auto-generated
+	 * public AddContactActivity(int type, int id) { // TODO Auto-generated
 	 * constructor stub this.type = type; this.id = id; }
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_modify_contact);
+		setContentView(R.layout.activity_add_contact);
 		
 		dialog = DialogFrag.getInstance();
 		// 判断网络是否连接
 		isConnected = NetworkManager.getInstance().isNetworkConnected(
-				ModifyContactActivity.this);
+				AddContactActivity.this);
 
 		// 判断网络是否连接
 		if (!isConnected) {
-			Toast.makeText(ModifyContactActivity.this, "网络未连接,请检查网络！", Toast.LENGTH_LONG)
+			Toast.makeText(AddContactActivity.this, "网络未连接,请检查网络！", Toast.LENGTH_LONG)
 					.show();
 			return;
 		}
 		
 		Intent intent = getIntent();
 		//type = intent.getIntExtra("type", 0);
-		id = intent.getIntExtra("id", 0);
+		//id = intent.getIntExtra("id", 0);
 
 		etName = (EditText) this.findViewById(R.id.et_modify_contact_name);
 		spClass = (Spinner) this.findViewById(R.id.sp_modify_contact_class);
@@ -220,13 +217,7 @@ public class ModifyContactActivity extends BaseActivity {
 		// 首先加载班级列表
 		dialog.show(getFragmentManager(), null);
 		new Thread(new LoadClassThread()).start();
-
 		
-		//load contact infomation
-		setTitle(R.string.activity_contact_update);
-		dialog.show(getFragmentManager(), null);
-		new Thread(new LoadContactThread()).start();
-
 		/**
 		 * 保存按钮事件
 		 */
@@ -264,7 +255,7 @@ public class ModifyContactActivity extends BaseActivity {
 					return;
 				}
 
-				Contact data = new Contact(id, name, cid, "", phone, email,
+				Contact data = new Contact(0, name, cid, "", phone, email,
 						living, company, remark);
 				dialog.show(getFragmentManager(), null);
 				new Thread(new SaveContactThread(data)).start();
@@ -281,7 +272,7 @@ public class ModifyContactActivity extends BaseActivity {
 				// 设置返回值为 取消
 				setResult(Activity.RESULT_CANCELED);
 				BaseApplication.getInstance().finishActivity(
-						ModifyContactActivity.class);
+						AddContactActivity.class);
 			}
 		});
 
@@ -316,7 +307,8 @@ public class ModifyContactActivity extends BaseActivity {
 	 * 
 	 * @author zhenyun
 	 * 
-	 */	
+	 */
+	/*
 	private class LoadContactThread implements Runnable {
 		@Override
 		public void run() {
@@ -330,7 +322,7 @@ public class ModifyContactActivity extends BaseActivity {
 			msg.obj = result;
 			handler.sendMessage(msg);
 		}
-	}
+	}*/
 
 	/**
 	 * 保存联系人信息

@@ -221,9 +221,7 @@ public class MainActivity extends BaseActivity {
 		// return true;
 		case R.id.action_add_contact:
 			Intent intent = new Intent(MainActivity.this,
-					ModifyContactActivity.class);
-			intent.putExtra("type", 0);// type 0为添加，1为修改
-			intent.putExtra("id", 0);// 添加时id为0
+					AddContactActivity.class);
 			// startActivity(intent);
 			startActivityForResult(intent, SUB_ACTIVITY_MODIFY);
 			return true;

@@ -30,8 +30,11 @@
                 android:resource="@xml/searchable"/>
         </activity>
         <activity
-            android:name="com.zzti.java_zzti_contact.ModifyContactActivity"
+            android:name="com.zzti.java_zzti_contact.AddContactActivity"
             android:label="@string/activity_contact_add"></activity>
+        <activity
+            android:name="com.zzti.java_zzti_contact.ModifyContactActivity"
+            android:label="@string/activity_contact_update"></activity>
      	<activity
      	    android:name="com.zzti.java_zzti_contact.ContactInfoActivity"
      	    android:label="@string/activity_contact_info"

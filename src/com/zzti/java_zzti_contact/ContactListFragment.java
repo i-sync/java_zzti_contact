@@ -40,10 +40,11 @@ public class ContactListFragment extends Fragment {
 	public ContactListFragment(int cid) {
 		this.cid = cid;
 	}
-
+	//get contact list
+	ListResult<Contact> result;
 	private Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
-			ListResult<Contact> result = (ListResult<Contact>) msg.obj;
+			result = (ListResult<Contact>) msg.obj;
 			if (result == null) {
 				Toast.makeText(getActivity(), "数据为：null", Toast.LENGTH_LONG)
 						.show();
@@ -53,7 +54,13 @@ public class ContactListFragment extends Fragment {
 					Toast.makeText(getActivity(), result.getMessage(),
 							Toast.LENGTH_LONG).show();
 				}
-
+				
+				//
+				if(result.getList()==null)
+				{
+					dialog.dismiss();
+					return;
+				}
 				ComplexListAdapter adapter = new ComplexListAdapter(
 						result.getList(), getActivity());
 				listView.setAdapter(adapter);
@@ -202,7 +209,7 @@ public class ContactListFragment extends Fragment {
 				public void onClick(View v) {
 					Intent intent = new Intent(getActivity(),
 							ModifyContactActivity.class);
-					intent.putExtra("type", 1);// type:0为添加，1为修改
+					//intent.putExtra("type", 1);// type:0为添加，1为修改
 					intent.putExtra("id", (int) getItemId(position));
 					// startActivity(intent);
 					getActivity().startActivityForResult(intent,
