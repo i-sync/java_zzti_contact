@@ -56,7 +56,7 @@ public class UpdateManager {
 	private ProgressBar mProgress;
 	private Dialog mDownloadDialog;
 
-	private String url = "http://contact09.duapp.com/java_zzti_cloud/android/update.xml";
+	private String url = "http://104.224.168.173/android/update.xml";
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {

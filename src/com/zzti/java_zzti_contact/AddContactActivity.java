@@ -54,11 +54,13 @@ public class AddContactActivity extends BaseActivity {
 				if (result == null) {
 					Toast.makeText(AddContactActivity.this, "查询数据为NULL!",
 							Toast.LENGTH_SHORT).show();
+					dialog.dismiss();
 					return;
 				}
 				if (result.getResult() != 1) {
 					Toast.makeText(AddContactActivity.this,
 							result.getMessage(), Toast.LENGTH_LONG).show();
+					dialog.dismiss();
 					return;
 				}
 				ComplexAdapter adapter = new ComplexAdapter(
@@ -203,16 +205,16 @@ public class AddContactActivity extends BaseActivity {
 		//type = intent.getIntExtra("type", 0);
 		//id = intent.getIntExtra("id", 0);
 
-		etName = (EditText) this.findViewById(R.id.et_modify_contact_name);
-		spClass = (Spinner) this.findViewById(R.id.sp_modify_contact_class);
-		etPhone = (EditText) this.findViewById(R.id.et_modify_contact_phone);
-		etEmail = (EditText) this.findViewById(R.id.et_modify_contact_email);
-		etLiving = (EditText) this.findViewById(R.id.et_modify_contact_living);
+		etName = (EditText) this.findViewById(R.id.et_add_contact_name);
+		spClass = (Spinner) this.findViewById(R.id.sp_add_contact_class);
+		etPhone = (EditText) this.findViewById(R.id.et_add_contact_phone);
+		etEmail = (EditText) this.findViewById(R.id.et_add_contact_email);
+		etLiving = (EditText) this.findViewById(R.id.et_add_contact_living);
 		etCompany = (EditText) this
-				.findViewById(R.id.et_modify_contact_company);
-		etRemark = (EditText) this.findViewById(R.id.et_modify_contact_remark);
-		btnSubmit = (Button) this.findViewById(R.id.btn_modify_contact_submit);
-		btnCancel = (Button) this.findViewById(R.id.btn_modify_contact_cancel);
+				.findViewById(R.id.et_add_contact_company);
+		etRemark = (EditText) this.findViewById(R.id.et_add_contact_remark);
+		btnSubmit = (Button) this.findViewById(R.id.btn_add_contact_submit);
+		btnCancel = (Button) this.findViewById(R.id.btn_add_contact_cancel);
 
 		// 首先加载班级列表
 		dialog.show(getFragmentManager(), null);
@@ -241,7 +243,7 @@ public class AddContactActivity extends BaseActivity {
 				if (phone.equals("")) {
 					etPhone.setError("手机号不能为空！");
 					flag = false;
-				} else if (!RegexUtil.isPhone(phone)) {
+				} else if (!RegexUtil.isMobile(phone)) {
 					etPhone.setError("请输入正确的手机号！");
 					flag = false;
 				}

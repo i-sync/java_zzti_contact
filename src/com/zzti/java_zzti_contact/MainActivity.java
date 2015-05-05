@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity {
 				if (result == null) {
 					Toast.makeText(MainActivity.this, "没有查询到数据！",
 							Toast.LENGTH_SHORT).show();
+					dialog.dismiss();
 					return;
 				}
 				if (result.getResult() != 1) {

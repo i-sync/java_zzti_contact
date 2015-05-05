@@ -35,11 +35,13 @@ public class ContactInfoActivity extends BaseActivity {
 			if (result == null) {
 				Toast.makeText(ContactInfoActivity.this, "查询数据为NULL!",
 						Toast.LENGTH_SHORT).show();
+				dialog.dismiss();
 				return;
 			}
 			if (result.getResult() != 1) {
 				Toast.makeText(ContactInfoActivity.this, result.getMessage(),
 						Toast.LENGTH_LONG).show();
+				dialog.dismiss();
 				return;
 			}
 

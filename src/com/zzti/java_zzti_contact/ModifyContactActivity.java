@@ -55,11 +55,13 @@ public class ModifyContactActivity extends BaseActivity {
 				if (result == null) {
 					Toast.makeText(ModifyContactActivity.this, "查询数据为NULL!",
 							Toast.LENGTH_SHORT).show();
+					dialog.dismiss();
 					return;
 				}
 				if (result.getResult() != 1) {
 					Toast.makeText(ModifyContactActivity.this,
 							result.getMessage(), Toast.LENGTH_LONG).show();
+					dialog.dismiss();
 					return;
 				}
 				ComplexAdapter adapter = new ComplexAdapter(
@@ -67,6 +69,10 @@ public class ModifyContactActivity extends BaseActivity {
 				spClass.setAdapter(adapter);
 				
 				dialog.dismiss();
+				
+				//load contact infomation
+				dialog.show(getFragmentManager(), null);
+				new Thread(new LoadContactThread()).start();
 				break;
 			
 			case CONTACT_LOAD_FLAG:
@@ -74,11 +80,13 @@ public class ModifyContactActivity extends BaseActivity {
 				if (result1 == null) {
 					Toast.makeText(ModifyContactActivity.this, "查询数据为NULL!",
 							Toast.LENGTH_SHORT).show();
+					dialog.dismiss();
 					return;
 				}
 				if (result1.getResult() != 1) {
 					Toast.makeText(ModifyContactActivity.this,
 							result1.getMessage(), Toast.LENGTH_LONG).show();
+					dialog.dismiss();
 					return;
 				}
 				// 得到对象，显示
@@ -224,8 +232,8 @@ public class ModifyContactActivity extends BaseActivity {
 		
 		//load contact infomation
 		setTitle(R.string.activity_contact_update);
-		dialog.show(getFragmentManager(), null);
-		new Thread(new LoadContactThread()).start();
+		//dialog.show(getFragmentManager(), null);
+		//new Thread(new LoadContactThread()).start();
 
 		/**
 		 * 保存按钮事件
@@ -250,7 +258,7 @@ public class ModifyContactActivity extends BaseActivity {
 				if (phone.equals("")) {
 					etPhone.setError("手机号不能为空！");
 					flag = false;
-				} else if (!RegexUtil.isPhone(phone)) {
+				} else if (!RegexUtil.isMobile(phone)) {
 					etPhone.setError("请输入正确的手机号！");
 					flag = false;
 				}

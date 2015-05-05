@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import android.app.Activity;
 import android.app.Application;
+import android.util.Log;
 
 public class BaseApplication extends Application {
 	private static Stack<Activity> activityStack;
@@ -81,6 +82,7 @@ public class BaseApplication extends Application {
 	public void finishAllActivity() {
 		for (int i = 0, size = activityStack.size(); i < size; i++) {
 			if (null != activityStack.get(i)) {
+				Log.i("----activityName---->", activityStack.get(i).getClass().getName());
 				activityStack.get(i).finish();
 			}
 		}
