@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 
 import android.util.Log;
 
@@ -37,26 +38,27 @@ public class RestRequest {
 		{	
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(restUrl+path);
-			post.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+			post.setHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 			post.setHeader("Accept", acceptType);
 
-			String data = new Gson().toJson(obj);			
+			String data = new Gson().toJson(obj);		
+			//Log.i(String.format("---%s---postBefore--->",path),data);
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("data",data));
-			post.setEntity(new UrlEncodedFormEntity(params));
+			post.setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));//resolve chinese 
 			
 			HttpResponse response = client .execute(post);
-			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "utf-8"));
 			StringBuilder builder = new StringBuilder();
 			for (String line = null; (line = reader.readLine()) != null;) {
 			    builder.append(line).append("\n");
 			}
-			Log.i("---postResult--->",builder.toString());
+			//Log.i(String.format("---%s---postResult--->",path),builder.toString());
 			t = new Gson().fromJson(builder.toString(), classType);
 		}
 		catch(Exception ex)
 		{
-			Log.e("----post error----->", ex.getMessage());
+			Log.e(String.format("---%s---post error--->",path), ex.getMessage());
 		}
 		return t;
 	}
@@ -80,7 +82,7 @@ public class RestRequest {
 			    builder.append(line).append("\n");
 			}
 
-			Log.i("---result--->",builder.toString());
+			//Log.i("---result--->",builder.toString());
 			t = new Gson().fromJson(builder.toString(), classType);
 		}
 		catch(Exception ex)

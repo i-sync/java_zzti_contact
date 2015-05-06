@@ -112,13 +112,15 @@ public class ModifyContactActivity extends BaseActivity {
 			case CONTACT_SAVE_FLAG:
 				Result result2 = (Result) msg.obj;
 				if (result2 == null) {
-					Toast.makeText(ModifyContactActivity.this, "得到数据为NULL!",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(ModifyContactActivity.this, "get result is NULL!",
+							Toast.LENGTH_LONG).show();
+					dialog.dismiss();
 					return;
 				}
 				if (result2.getResult() != 1) {
 					Toast.makeText(ModifyContactActivity.this,
 							result2.getMessage(), Toast.LENGTH_LONG).show();
+					dialog.dismiss();
 					return;
 				}
 				// Intent intent = new

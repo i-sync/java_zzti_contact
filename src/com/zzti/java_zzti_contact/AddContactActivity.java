@@ -69,47 +69,18 @@ public class AddContactActivity extends BaseActivity {
 				
 				dialog.dismiss();
 				break;
-			/*case CONTACT_LOAD_FLAG:
-				TResult<Contact> result1 = (TResult<Contact>) msg.obj;
-				if (result1 == null) {
-					Toast.makeText(AddContactActivity.this, "查询数据为NULL!",
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-				if (result1.getResult() != 1) {
-					Toast.makeText(AddContactActivity.this,
-							result1.getMessage(), Toast.LENGTH_LONG).show();
-					return;
-				}
-				// 得到对象，显示
-				Contact data = result1.getT();
-				etName.setText(data.getName());
-				for (int i = 0; spClass.getAdapter() != null
-						&& i < spClass.getAdapter().getCount(); i++) {
-					if ((int) spClass.getAdapter().getItemId(i) == data
-							.getCid()) {
-						spClass.setSelection(i, true);
-						break;
-					}
-				}
-				etPhone.setText(data.getPhone());
-				etEmail.setText(data.getEmail());
-				etLiving.setText(data.getLiving());
-				etCompany.setText(data.getCompany());
-				etRemark.setText(data.getRemark());
-
-				dialog.dismiss();
-				break;*/
 			case CONTACT_SAVE_FLAG:
 				Result result2 = (Result) msg.obj;
 				if (result2 == null) {
-					Toast.makeText(AddContactActivity.this, "得到数据为NULL!",
+					Toast.makeText(AddContactActivity.this, "get result model is NULL!",
 							Toast.LENGTH_SHORT).show();
+					dialog.dismiss();
 					return;
 				}
 				if (result2.getResult() != 1) {
 					Toast.makeText(AddContactActivity.this,
 							result2.getMessage(), Toast.LENGTH_LONG).show();
+					dialog.dismiss();
 					return;
 				}
 				// Intent intent = new
@@ -342,7 +313,7 @@ public class AddContactActivity extends BaseActivity {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			Result result = Common.getInstance().contact_update(data);
+			Result result = Common.getInstance().contact_add(data);
 			Message msg = Message.obtain();
 			msg.what = CONTACT_SAVE_FLAG;
 			msg.obj = result;

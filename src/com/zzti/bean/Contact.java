@@ -2,6 +2,8 @@
 
 import java.io.Serializable; 
 
+import com.zzti.java_zzti_contact.NetworkManager;
+
 public class Contact implements Serializable {
 
 
@@ -16,7 +18,8 @@ public class Contact implements Serializable {
 	public Contact(int id ,String name, int cid, String cname, String phone,
 			String email, String living, String company, String remark ) {
 		this(name, cid, cname, phone, email, living, company, remark, null,
-				null, "::1");
+				null, NetworkManager.getIPAddress(true));
+		this.id = id;
 	}
 	public Contact(String name, int cid, String cname, String phone,
 			String email, String living, String company, String remark,
