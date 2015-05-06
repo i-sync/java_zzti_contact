@@ -56,7 +56,7 @@ public class UpdateManager {
 	private ProgressBar mProgress;
 	private Dialog mDownloadDialog;
 
-	private String url = "http://104.224.168.173/android/update.xml";
+	private String url = "http://www.contacts09.tk/android/update.xml";
 
 	private Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {

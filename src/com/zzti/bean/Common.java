@@ -1,23 +1,18 @@
 ﻿package com.zzti.bean;
+ 
 
-import org.ksoap2.serialization.SoapObject;
+import com.google.gson.reflect.TypeToken;
 
-import android.util.Log;
-
-import com.zzti.utils.SoapObjectUtils;
-import com.zzti.utils.WebServiceObject;
+import android.util.Log; 
 
 public class Common {
-	private final String SERVICE_URL = "http://104.224.168.173/java_zzti_clouddb/Service";
-	// private final String SERVICE_URL =	 "http://192.168.0.102:8080/java_zzti_clouddb/Service";
-	private final String SERVICE_NS = "http://service.zzti.com/";
-
+	
 	private volatile static Common instance;
 
 	private Common() {}
 
 	/**
-	 * 获取实例
+	 * get instance
 	 * 
 	 * @return
 	 */
@@ -33,122 +28,57 @@ public class Common {
 	}
 
 	/**
-	 * 获取班级列表
+	 * get class list
 	 * 
 	 * @return
 	 */
 	public ListResult<Class> class_getlist() {
-		// 方法名
-		String methodName = "android_class_getlist";
-		WebServiceObject.Builder builder = new WebServiceObject.Builder(
-				SERVICE_URL, SERVICE_NS, methodName);
-
-		try {
-			SoapObject resultSoapObject = builder.get().call();
-			String string = resultSoapObject.getProperty(0).toString();
-			Log.i(methodName, string);
-			return (ListResult<Class>) SoapObjectUtils.StringToObject(string);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		//rest path
+		String path = "/class/list";
+		Log.i("------->>", path);
+		return RestRequest.getT(path, "application/json", new TypeToken<ListResult<Class>>(){}.getType());
 	}
 
 	/**
-	 * 获取联系人列表
+	 * get contact list
 	 * 
 	 * @param data
 	 * @return
 	 */
 	public ListResult<Contact> contact_getlist(Contact data) {
-		String methodName = "android_contact_getlist";
-		WebServiceObject.Builder builder = new WebServiceObject.Builder(
-				SERVICE_URL, SERVICE_NS, methodName);
-
-		try {
-			String string = SoapObjectUtils.ObjectToSting(data);
-			SoapObject resultSoapObject = builder.setStr("string", string)
-					.get().call();
-			string = resultSoapObject.getProperty(0).toString();
-			Log.i(methodName, string);
-			return (ListResult<Contact>) SoapObjectUtils.StringToObject(string);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
+		String path = "/contact/list";
+		return RestRequest.postT(path, "application/json", data,new TypeToken<ListResult<Contact>>(){}.getType());
 	}
 
 	/**
-	 * 根据ID获取联系人信息
+	 *get contact model by id
 	 * @param data
 	 * @return
 	 */
 	public TResult<Contact> contact_getmodel(Contact data) {
-		String methodName = "android_contact_getmodel";
-		WebServiceObject.Builder builder = new WebServiceObject.Builder(
-				SERVICE_URL, SERVICE_NS, methodName);
-
-		try {
-			String string = SoapObjectUtils.ObjectToSting(data);
-			SoapObject resultSoapObject = builder.setStr("string", string)
-					.get().call();
-			string = resultSoapObject.getProperty(0).toString();
-			Log.i(methodName, string);
-			return (TResult<Contact>) SoapObjectUtils.StringToObject(string);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		String path = "/contact/model";
+		return RestRequest.postT(path, "application/json", data, new TypeToken<TResult<Contact>>(){}.getType());
 	}
 	
 	/**
-	 * 添加联系人
+	 * add contact
 	 * @param data
 	 * @return
 	 */
 	public Result contact_add(Contact data)
 	{
-		String methodName="android_contact_add";
-		WebServiceObject.Builder builder = new WebServiceObject.Builder(SERVICE_URL, SERVICE_NS, methodName);
-		
-		try
-		{
-			String string = SoapObjectUtils.ObjectToSting(data);
-			SoapObject resultSoapObject = builder.setStr("string", string).get().call();
-			
-			string  = resultSoapObject.getProperty(0).toString();
-			Log.i(methodName,string);
-			return (Result) SoapObjectUtils.StringToObject(string);
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return null;
+		String path="/contact/add";
+		return RestRequest.postT(path, "application/json", data, Result.class);
 	}
 	
 	/**
-	 * 修改联系人
+	 * update contact
 	 * @param data
 	 * @return
 	 */
 	public Result contact_update(Contact data)
 	{
-		String methodName="android_contact_update";
-		WebServiceObject.Builder builder = new WebServiceObject.Builder(SERVICE_URL, SERVICE_NS, methodName);
-		
-		try
-		{
-			String string = SoapObjectUtils.ObjectToSting(data);
-			SoapObject resultSoapObject = builder.setStr("string", string).get().call();
-			
-			string  = resultSoapObject.getProperty(0).toString();
-			Log.i(methodName,string);
-			return (Result) SoapObjectUtils.StringToObject(string);
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return null;
+		String path="/contact/update";
+		return RestRequest.postT(path, "application/json", data, Result.class);
 	}
 }
